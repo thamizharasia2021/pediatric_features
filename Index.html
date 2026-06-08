@@ -1,0 +1,1030 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>EchoReport Pro — Complete Pediatric Echocardiography Reporting System</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+<style>
+:root{
+  --ink:#111827;--ink2:#1f2937;--teal:#0e7490;--teal2:#0891b2;--teal-bg:#e0f7fb;
+  --amber:#b45309;--amber2:#d97706;--white:#fff;--page:#f4f6f9;
+  --mist:#374151;--dim:#6b7280;--card:#fff;--border:#e5e7eb;
+  --normal:#16a34a;--normal-bg:#f0fdf4;--normal-bd:#86efac;
+  --warn:#d97706;--warn-bg:#fffbeb;--warn-bd:#fcd34d;
+  --danger:#dc2626;--danger-bg:#fef2f2;--danger-bd:#fca5a5;
+  --blue:#1d4ed8;--blue-bg:#eff6ff;--blue-bd:#93c5fd;
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{font-family:'DM Sans',sans-serif;background:var(--page);color:var(--ink);overflow-x:hidden;}
+
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:200;height:64px;display:flex;align-items:center;justify-content:space-between;padding:0 5%;background:rgba(255,255,255,0.95);backdrop-filter:blur(20px);border-bottom:1px solid var(--border);transition:box-shadow .3s;}
+nav.scrolled{box-shadow:0 2px 20px rgba(0,0,0,.08);}
+.nav-brand{display:flex;align-items:center;gap:10px;}
+.nav-logo{width:36px;height:36px;background:linear-gradient(135deg,var(--teal),var(--teal2));border-radius:9px;display:flex;align-items:center;justify-content:center;font-family:'Cormorant Garamond',serif;font-size:18px;font-weight:700;color:white;}
+.nav-name{font-family:'Cormorant Garamond',serif;font-size:1.2rem;font-weight:700;color:var(--ink);}
+.nav-name span{color:var(--teal);}
+.nav-links{display:flex;align-items:center;gap:28px;list-style:none;}
+.nav-links a{color:var(--dim);text-decoration:none;font-size:13.5px;font-weight:500;transition:color .2s;}
+.nav-links a:hover{color:var(--teal);}
+.nav-cta{background:var(--teal);color:white!important;padding:8px 20px;border-radius:7px;font-weight:600!important;transition:background .2s,transform .15s!important;}
+.nav-cta:hover{background:var(--teal2)!important;transform:translateY(-1px);}
+
+/* HERO */
+.hero{padding:110px 5% 80px;max-width:1100px;margin:0 auto;display:grid;grid-template-columns:1.1fr 1fr;gap:60px;align-items:center;}
+.hero-eyebrow{display:inline-flex;align-items:center;gap:8px;background:rgba(14,116,144,.08);border:1px solid rgba(14,116,144,.2);color:var(--teal);font-size:11px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;padding:5px 14px;border-radius:999px;margin-bottom:20px;}
+.hero-eyebrow::before{content:'';width:6px;height:6px;background:var(--teal);border-radius:50%;animation:pulse 2s infinite;}
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1);}50%{opacity:.5;transform:scale(.7);}}
+.hero-h1{font-family:'Cormorant Garamond',serif;font-size:clamp(2.6rem,4.5vw,4rem);font-weight:700;line-height:1.06;letter-spacing:-.02em;margin-bottom:20px;color:var(--ink);}
+.hero-h1 em{font-style:italic;color:var(--teal);}
+.hero-h1 .amber{color:var(--amber);}
+.hero-sub{font-size:16px;color:var(--mist);line-height:1.7;margin-bottom:32px;max-width:480px;}
+.hero-actions{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:40px;}
+.btn-primary{display:inline-flex;align-items:center;gap:8px;background:var(--teal);color:white;padding:13px 26px;border-radius:8px;font-size:14px;font-weight:600;text-decoration:none;transition:background .2s,transform .2s;box-shadow:0 4px 20px rgba(14,116,144,.25);}
+.btn-primary:hover{background:var(--teal2);transform:translateY(-2px);}
+.btn-outline{display:inline-flex;align-items:center;gap:8px;color:var(--ink);padding:13px 26px;border-radius:8px;border:1.5px solid var(--border);font-size:14px;font-weight:500;text-decoration:none;transition:all .2s;}
+.btn-outline:hover{border-color:var(--teal);color:var(--teal);background:var(--teal-bg);}
+.hero-stats{display:flex;gap:28px;padding-top:28px;border-top:1px solid var(--border);flex-wrap:wrap;}
+.stat-num{font-family:'Cormorant Garamond',serif;font-size:2rem;font-weight:700;color:var(--amber);line-height:1;}
+.stat-lbl{font-size:11.5px;color:var(--dim);font-weight:500;text-transform:uppercase;letter-spacing:.03em;margin-top:3px;}
+
+/* HERO VISUAL */
+.hero-visual{position:relative;}
+.hero-card{background:white;border:1px solid var(--border);border-radius:14px;padding:24px;box-shadow:0 8px 40px rgba(0,0,0,.09);}
+.hero-card-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;padding-bottom:14px;border-bottom:1px solid var(--border);}
+.hero-card-title{font-family:'Cormorant Garamond',serif;font-size:.95rem;font-weight:700;color:var(--ink);}
+.badge-live{background:var(--normal-bg);border:1px solid var(--normal-bd);color:var(--normal);font-size:10px;font-weight:700;padding:2px 9px;border-radius:999px;letter-spacing:.4px;}
+.mini-bars{display:flex;align-items:flex-end;gap:6px;height:72px;margin-bottom:14px;}
+.mini-bar-col{flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;justify-content:flex-end;height:100%;}
+.mini-bar{width:100%;border-radius:3px 3px 0 0;transition:height 1.4s cubic-bezier(.34,1.56,.64,1);}
+.bar-g{background:linear-gradient(180deg,#16a34a,#15803d);}
+.bar-a{background:linear-gradient(180deg,#d97706,#b45309);}
+.bar-r{background:linear-gradient(180deg,#dc2626,#b91c1c);}
+.mini-z{font-size:9px;font-weight:700;}
+.mini-lbl{font-size:9px;color:var(--dim);font-family:'DM Mono',monospace;}
+.zero-line{width:100%;height:1px;background:#d1d5db;margin:3px 0;}
+.hero-row{display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px solid #f9fafb;font-size:12px;color:var(--mist);}
+.hero-row:last-child{border:none;}
+.z-chip{font-family:'DM Mono',monospace;font-size:10.5px;padding:2px 8px;border-radius:4px;font-weight:600;}
+.zn{background:var(--normal-bg);color:var(--normal);border:1px solid var(--normal-bd);}
+.za{background:var(--danger-bg);color:var(--danger);border:1px solid var(--danger-bd);}
+.zb{background:var(--warn-bg);color:var(--warn);border:1px solid var(--warn-bd);}
+.hero-float{position:absolute;top:-18px;right:-18px;background:linear-gradient(135deg,var(--amber),var(--amber2));color:white;border-radius:12px;padding:12px 16px;text-align:center;box-shadow:0 6px 24px rgba(180,83,9,.35);}
+.hero-float-num{font-family:'Cormorant Garamond',serif;font-size:1.5rem;font-weight:700;line-height:1;}
+.hero-float-lbl{font-size:10px;font-weight:600;opacity:.85;margin-top:2px;}
+
+/* SECTION SHARED */
+section{position:relative;}
+.section-wrap{max-width:1100px;margin:0 auto;padding:0 5%;}
+.sec-eye{font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--teal);margin-bottom:10px;}
+.sec-title{font-family:'Cormorant Garamond',serif;font-size:clamp(1.8rem,3.5vw,2.7rem);font-weight:700;line-height:1.1;letter-spacing:-.02em;color:var(--ink);margin-bottom:14px;}
+.sec-sub{font-size:15.5px;color:var(--mist);line-height:1.7;max-width:580px;}
+.divider{height:1px;background:linear-gradient(90deg,transparent,var(--border),transparent);margin:0;}
+
+/* TABS SHOWCASE */
+.tabs-section{padding:80px 0;background:white;}
+.tabs-showcase{margin-top:48px;}
+.tab-pills{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:20px;}
+.tab-pill{padding:6px 16px;border-radius:999px;border:1.5px solid var(--border);background:white;font-size:12.5px;font-weight:600;color:var(--dim);cursor:pointer;font-family:'DM Sans',sans-serif;transition:all .2s;white-space:nowrap;}
+.tab-pill:hover{border-color:var(--teal);color:var(--teal);}
+.tab-pill.active{background:var(--teal);border-color:var(--teal);color:white;}
+.tab-pill .pill-new{font-size:8.5px;background:rgba(255,255,255,.25);padding:1px 5px;border-radius:999px;margin-left:3px;font-weight:800;}
+.tab-panels{}
+.tab-panel{display:none;}
+.tab-panel.active{display:grid;grid-template-columns:1fr 1fr;gap:32px;align-items:start;}
+.panel-desc{}
+.panel-title{font-family:'Cormorant Garamond',serif;font-size:1.4rem;font-weight:700;color:var(--ink);margin-bottom:10px;}
+.panel-sub{font-size:14px;color:var(--mist);line-height:1.7;margin-bottom:16px;}
+.panel-features{display:flex;flex-direction:column;gap:8px;}
+.pf-item{display:flex;align-items:flex-start;gap:10px;font-size:13.5px;color:var(--mist);}
+.pf-icon{width:22px;height:22px;border-radius:5px;background:var(--teal-bg);display:flex;align-items:center;justify-content:center;font-size:12px;flex-shrink:0;margin-top:1px;}
+.pf-text{line-height:1.5;}<br>.pf-text strong{color:var(--ink);}
+.panel-mock{background:var(--page);border:1px solid var(--border);border-radius:10px;padding:18px;font-size:12px;}
+.mock-head{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.6px;color:var(--teal);margin-bottom:12px;}
+.mock-row{display:flex;justify-content:space-between;padding:5px 8px;border-radius:5px;background:white;border:1px solid var(--border);margin-bottom:5px;font-size:12px;}
+.mock-row:last-child{margin-bottom:0;}
+.mock-label{color:var(--mist);font-weight:500;}
+.mock-val{font-family:'DM Mono',monospace;font-weight:700;}
+.val-n{color:var(--normal);}
+.val-a{color:var(--danger);}
+.val-b{color:var(--warn);}
+.mock-chip{font-size:10px;font-weight:700;padding:2px 8px;border-radius:4px;}
+.chip-g{background:var(--normal-bg);color:var(--normal);border:1px solid var(--normal-bd);}
+.chip-r{background:var(--danger-bg);color:var(--danger);border:1px solid var(--danger-bd);}
+.chip-b{background:var(--warn-bg);color:var(--warn);border:1px solid var(--warn-bd);}
+.chip-bl{background:var(--blue-bg);color:var(--blue);border:1px solid var(--blue-bd);}
+
+/* FEATURES GRID */
+.features-section{padding:90px 0;background:var(--page);}
+.features-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:52px;}
+.feat-card{background:white;border:1px solid var(--border);border-radius:12px;padding:24px;transition:all .25s;position:relative;overflow:hidden;}
+.feat-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--teal),var(--teal2));opacity:0;transition:opacity .25s;}
+.feat-card:hover{transform:translateY(-3px);box-shadow:0 8px 28px rgba(14,116,144,.1);border-color:var(--teal);}
+.feat-card:hover::before{opacity:1;}
+.feat-icon{width:44px;height:44px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:20px;margin-bottom:14px;}
+.fi-teal{background:var(--teal-bg);border:1px solid #a5f3fc;}
+.fi-amber{background:#fef3c7;border:1px solid #fcd34d;}
+.fi-green{background:var(--normal-bg);border:1px solid var(--normal-bd);}
+.fi-red{background:var(--danger-bg);border:1px solid var(--danger-bd);}
+.fi-blue{background:var(--blue-bg);border:1px solid var(--blue-bd);}
+.fi-purple{background:#f5f3ff;border:1px solid #c4b5fd;}
+.fi-pink{background:#fdf2f8;border:1px solid #f0abfc;}
+.fi-slate{background:#f8fafc;border:1px solid #cbd5e1;}
+.fi-orange{background:#fff7ed;border:1px solid #fed7aa;}
+.feat-title{font-family:'Cormorant Garamond',serif;font-size:1.1rem;font-weight:700;color:var(--ink);margin-bottom:6px;}
+.feat-desc{font-size:13px;color:var(--dim);line-height:1.6;}
+.feat-tag{display:inline-block;margin-top:10px;font-size:10px;font-weight:700;padding:2px 9px;border-radius:999px;letter-spacing:.3px;text-transform:uppercase;}
+.tag-new{background:#fef3c7;color:var(--amber);border:1px solid #fcd34d;}
+.tag-core{background:var(--teal-bg);color:var(--teal);border:1px solid #a5f3fc;}
+.tag-ref{background:var(--blue-bg);color:var(--blue);border:1px solid var(--blue-bd);}
+
+/* MEASUREMENT MODALITIES */
+.modalities-section{padding:90px 0;background:white;}
+.modalities-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:48px;}
+.mod-card{background:var(--page);border:1.5px solid var(--border);border-radius:10px;padding:18px;transition:all .2s;}
+.mod-card:hover{border-color:var(--teal);background:var(--teal-bg);}
+.mod-card-icon{font-size:26px;margin-bottom:10px;}
+.mod-card-title{font-size:13.5px;font-weight:700;color:var(--ink);margin-bottom:5px;}
+.mod-card-items{font-size:12px;color:var(--dim);line-height:1.7;}
+
+/* SOCIETY BADGES */
+.societies-section{padding:80px 0;background:var(--page);}
+.soc-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:48px;}
+.soc-card{background:white;border:1px solid var(--border);border-radius:10px;padding:18px;transition:box-shadow .2s;}
+.soc-card:hover{box-shadow:0 4px 16px rgba(0,0,0,.07);}
+.soc-icon{font-size:28px;margin-bottom:8px;}
+.soc-name{font-size:12.5px;font-weight:700;color:var(--ink);margin-bottom:4px;}
+.soc-detail{font-size:11.5px;color:var(--dim);line-height:1.5;}
+.soc-badge{display:inline-flex;align-items:center;gap:4px;margin-top:8px;font-size:10px;font-weight:700;padding:2px 8px;border-radius:3px;letter-spacing:.3px;}
+.sb-impl{background:var(--normal-bg);color:var(--normal);border:1px solid var(--normal-bd);}
+.sb-ref{background:var(--blue-bg);color:var(--blue);border:1px solid var(--blue-bd);}
+
+/* REFERENCES */
+.references-section{padding:80px 0;background:white;}
+.ref-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:48px;}
+.ref-item{background:var(--page);border:1px solid var(--border);border-radius:8px;padding:14px 16px;display:flex;gap:12px;}
+.ref-num{width:26px;height:26px;border-radius:6px;background:var(--ink2);color:white;font-size:11px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px;font-family:'DM Mono',monospace;}
+.ref-body{}
+.ref-cite{font-size:12.5px;color:var(--ink);line-height:1.55;margin-bottom:5px;}
+.ref-cite em{color:var(--dim);}
+.ref-badges{display:flex;gap:5px;flex-wrap:wrap;}
+.rb{font-size:10px;font-weight:700;padding:2px 8px;border-radius:4px;}
+.rb-j{background:var(--normal-bg);color:var(--normal);border:1px solid var(--normal-bd);}
+.rb-g{background:var(--blue-bg);color:var(--blue);border:1px solid var(--blue-bd);}
+.rb-d{background:var(--page);color:var(--dim);border:1px solid var(--border);font-family:'DM Mono',monospace;font-size:9px;}
+.rb-w{background:#fef3c7;color:var(--amber);border:1px solid #fcd34d;}
+
+/* REPORT PREVIEW */
+.report-section{padding:90px 0;background:var(--page);}
+.report-showcase{display:grid;grid-template-columns:1.1fr 1fr;gap:48px;align-items:start;margin-top:52px;}
+.report-mock{background:white;border:1px solid var(--border);border-radius:12px;overflow:hidden;box-shadow:0 4px 32px rgba(0,0,0,.08);}
+.report-mock-bar{background:var(--ink2);padding:8px 14px;display:flex;align-items:center;gap:6px;}
+.rmd{width:10px;height:10px;border-radius:50%;}
+.report-mock-body{padding:18px 20px;}
+.rm-hosp{display:flex;gap:12px;align-items:center;margin-bottom:12px;padding-bottom:12px;border-bottom:2px solid var(--ink2);}
+.rm-logo{width:44px;height:44px;border-radius:8px;background:var(--teal-bg);display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0;}
+.rm-h-name{font-family:'Cormorant Garamond',serif;font-size:.95rem;font-weight:700;color:var(--ink);line-height:1.2;}
+.rm-h-sub{font-size:10px;color:var(--dim);}
+.rm-accred{display:flex;gap:4px;margin-top:3px;}
+.rm-badge{font-size:8px;font-weight:700;padding:1px 6px;border-radius:3px;background:var(--teal-bg);color:var(--teal);border:1px solid #a5f3fc;}
+.rm-title{font-family:'Cormorant Garamond',serif;text-align:center;font-size:1rem;font-weight:700;color:var(--ink);margin-bottom:10px;}
+.rm-divider{border:none;border-top:1.5px solid var(--ink2);margin:8px 0;}
+.rm-thin{border:none;border-top:1px solid var(--border);margin:6px 0;}
+.rm-field-row{display:grid;grid-template-columns:1fr 1fr;gap:4px;font-size:11px;color:var(--mist);margin-bottom:4px;}
+.rm-sec{font-size:8.5px;font-weight:700;text-transform:uppercase;letter-spacing:.8px;color:var(--teal);margin:8px 0 4px;}
+.rm-text{font-size:11px;color:var(--mist);line-height:1.5;}
+.rm-impression{background:var(--page);border-left:2.5px solid var(--teal);padding:8px 10px;font-size:11px;color:var(--ink2);line-height:1.6;white-space:pre-wrap;}
+.rm-sig{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:14px;}
+.rm-sig-col{border-top:1px solid var(--ink2);padding-top:5px;}
+.rm-sig-name{font-size:11.5px;font-weight:700;color:var(--ink);}
+.rm-sig-sub{font-size:10px;color:var(--dim);}
+.rm-footer{border-top:1px solid var(--border);padding-top:8px;margin-top:10px;font-size:9px;color:var(--dim);line-height:1.5;}
+.rm-status{display:inline-flex;align-items:center;gap:6px;font-size:10px;font-weight:700;padding:3px 10px;border-radius:4px;background:var(--normal-bg);color:var(--normal);border:1px solid var(--normal-bd);margin-bottom:8px;}
+.report-features-list{display:flex;flex-direction:column;gap:0;}
+.rfl{display:flex;gap:14px;padding:16px 0;border-bottom:1px solid var(--border);align-items:flex-start;}
+.rfl:last-child{border:none;}
+.rfl-icon{width:38px;height:38px;border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:17px;flex-shrink:0;}
+.rfl-title{font-size:13.5px;font-weight:700;color:var(--ink);margin-bottom:2px;}
+.rfl-desc{font-size:12.5px;color:var(--dim);line-height:1.5;}
+
+/* WORKFLOW */
+.workflow-section{padding:80px 0;background:var(--page);}
+.workflow-steps{display:grid;grid-template-columns:repeat(5,1fr);gap:0;margin-top:52px;position:relative;}
+.workflow-steps::before{content:'';position:absolute;top:33px;left:10%;right:10%;height:1px;background:linear-gradient(90deg,var(--teal),var(--amber));opacity:.3;}
+.workflow-step{text-align:center;padding:0 12px;position:relative;}
+.step-circle{width:66px;height:66px;border-radius:50%;background:linear-gradient(135deg,var(--teal-bg),#f0f9ff);border:2px solid #a5f3fc;display:flex;align-items:center;justify-content:center;font-size:22px;margin:0 auto 16px;position:relative;z-index:1;transition:all .3s;}
+.workflow-step:hover .step-circle{border-color:var(--teal);background:var(--teal-bg);transform:scale(1.08);}
+.step-n{position:absolute;top:-4px;right:-4px;width:20px;height:20px;background:var(--amber);color:white;border-radius:50%;font-size:10px;font-weight:800;display:flex;align-items:center;justify-content:center;}
+.step-title{font-family:'Cormorant Garamond',serif;font-size:1rem;font-weight:700;color:var(--ink);margin-bottom:6px;}
+.step-desc{font-size:12px;color:var(--dim);line-height:1.6;}
+
+/* WA SECTION */
+.sharing-section{padding:80px 0;background:white;}
+.sharing-grid{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center;margin-top:52px;}
+.wa-mock{background:#e5ddd5;border-radius:16px;padding:20px;max-width:340px;}
+.wa-header{background:#075e54;border-radius:12px 12px 0 0;padding:12px 16px;display:flex;align-items:center;gap:10px;margin:-20px -20px 16px;border-radius:16px 16px 0 0;}
+.wa-avatar{width:34px;height:34px;border-radius:50%;background:#25d366;display:flex;align-items:center;justify-content:center;font-size:15px;}
+.wa-n{font-size:13px;font-weight:600;color:white;}
+.wa-s{font-size:11px;color:rgba(255,255,255,.7);}
+.wa-bubble{background:white;border-radius:0 12px 12px 12px;padding:10px 13px;font-size:11.5px;color:var(--ink2);line-height:1.55;box-shadow:0 1px 3px rgba(0,0,0,.08);margin-bottom:8px;}
+.wa-bubble strong{color:#075e54;display:block;margin-bottom:3px;font-size:12px;}
+.wa-line{border-top:1px solid var(--border);margin:5px 0;}
+.wa-time{font-size:9px;color:#9ca3af;text-align:right;margin-top:3px;}
+.sharing-list{display:flex;flex-direction:column;gap:16px;}
+.sl-item{display:flex;gap:14px;padding:16px 18px;background:var(--page);border:1px solid var(--border);border-radius:10px;transition:box-shadow .2s;}
+.sl-item:hover{box-shadow:0 4px 16px rgba(0,0,0,.07);}
+.sl-icon{font-size:22px;flex-shrink:0;margin-top:2px;}
+.sl-title{font-size:13.5px;font-weight:700;color:var(--ink);margin-bottom:2px;}
+.sl-desc{font-size:12.5px;color:var(--dim);line-height:1.5;}
+
+/* CTA */
+.cta-section{padding:90px 5%;background:linear-gradient(135deg,#e0f7fb 0%,#fef9ec 100%);border-top:1px solid #a5f3fc;border-bottom:1px solid #fcd34d;}
+.cta-inner{max-width:700px;margin:0 auto;text-align:center;}
+.cta-title{font-family:'Cormorant Garamond',serif;font-size:clamp(2rem,4vw,2.8rem);font-weight:700;line-height:1.1;color:var(--ink);margin-bottom:14px;}
+.cta-sub{font-size:16px;color:var(--mist);line-height:1.7;margin-bottom:32px;}
+.cta-actions{display:flex;justify-content:center;gap:14px;flex-wrap:wrap;margin-bottom:18px;}
+.cta-note{font-size:12px;color:var(--dim);}
+
+/* FOOTER */
+footer{background:var(--ink2);padding:40px 5%;}
+.footer-inner{max-width:1100px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;gap:20px;flex-wrap:wrap;}
+.footer-brand{font-family:'Cormorant Garamond',serif;font-size:1.1rem;color:#d1d5db;}
+.footer-brand span{color:#f59e0b;}
+.footer-links{display:flex;gap:20px;list-style:none;}
+.footer-links a{color:#9ca3af;text-decoration:none;font-size:13px;transition:color .2s;}
+.footer-links a:hover{color:#f3f4f6;}
+.footer-copy{font-size:12px;color:#6b7280;}
+
+/* REVEAL */
+.reveal{opacity:0;transform:translateY(18px);transition:opacity .65s ease,transform .65s ease;}
+.reveal.visible{opacity:1;transform:translateY(0);}
+
+@media(max-width:900px){
+  .hero,.report-showcase,.sharing-grid{grid-template-columns:1fr;}
+  .hero-visual{display:none;}
+  .tab-panel.active{grid-template-columns:1fr;}
+  .features-grid{grid-template-columns:1fr 1fr;}
+  .modalities-grid,.soc-grid{grid-template-columns:1fr 1fr;}
+  .ref-grid{grid-template-columns:1fr;}
+  .workflow-steps{grid-template-columns:1fr 1fr;gap:24px;}
+  .workflow-steps::before{display:none;}
+  .nav-links{display:none;}
+}
+@media(max-width:600px){
+  .features-grid,.modalities-grid,.soc-grid{grid-template-columns:1fr;}
+  .workflow-steps{grid-template-columns:1fr;}
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav id="mainNav">
+  <div class="nav-brand">
+    <div class="nav-logo">E</div>
+    <div class="nav-name">EchoReport <span>Pro</span></div>
+  </div>
+  <ul class="nav-links">
+    <li><a href="#features">Features</a></li>
+    <li><a href="#modalities">Modalities</a></li>
+    <li><a href="#report">Report</a></li>
+    <li><a href="#references">References</a></li>
+    <li><a href="#sharing">Sharing</a></li>
+    <li><a href="pediatric-echo-complete.html" class="nav-cta">Open App →</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<div style="max-width:1100px;margin:0 auto;padding:0 5%;">
+<section class="hero" style="max-width:100%;margin:0;padding:110px 0 80px;">
+  <div>
+    <div class="hero-eyebrow">Complete Edition v3.0 · 15 Clinical Modules</div>
+    <h1 class="hero-h1">The Complete<br/><em>Pediatric Echo</em><br/>Reporting <span class="amber">System</span></h1>
+    <p class="hero-sub">15 tabs covering every echocardiographic modality — 2D, M-mode, spectral Doppler, colour Doppler, TDI, strain, RV function, diastolic grading, pericardial effusion, IVC, RHD scoring, coronary Z-scores, history and authenticated reports.</p>
+    <div class="hero-actions">
+      <a href="pediatric-echo-complete.html" class="btn-primary">
+        <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+        Launch App
+      </a>
+      <a href="#features" class="btn-outline">Explore All Features</a>
+    </div>
+    <div class="hero-stats">
+      <div><div class="stat-num">15</div><div class="stat-lbl">Clinical Tabs</div></div>
+      <div><div class="stat-num">7</div><div class="stat-lbl">Echo Modalities</div></div>
+      <div><div class="stat-num">20</div><div class="stat-lbl">Guideline Citations</div></div>
+      <div><div class="stat-num">8</div><div class="stat-lbl">Report Templates</div></div>
+    </div>
+  </div>
+  <div class="hero-visual">
+    <div class="hero-float"><div class="hero-float-num">Z +4.8</div><div class="hero-float-lbl">LMCA Kawasaki</div></div>
+    <div class="hero-card">
+      <div class="hero-card-head">
+        <div class="hero-card-title">2D Z-Score Profile — Aortic Structures</div>
+        <div class="badge-live">LIVE CALC</div>
+      </div>
+      <div class="mini-bars">
+        <div class="mini-bar-col"><div class="mini-z bar-g" style="font-size:9px;font-weight:700;color:#15803d;text-align:center;">+1.2</div><div class="mini-bar bar-g" style="height:30%;"></div><div class="mini-lbl">AO root</div></div>
+        <div class="mini-bar-col"><div class="mini-z bar-g" style="font-size:9px;font-weight:700;color:#15803d;text-align:center;">+0.8</div><div class="mini-bar bar-g" style="height:20%;"></div><div class="mini-lbl">STJ</div></div>
+        <div class="mini-bar-col"><div class="mini-z" style="font-size:9px;font-weight:700;color:#b91c1c;text-align:center;">+3.9</div><div class="mini-bar bar-r" style="height:78%;"></div><div class="mini-lbl">MPA</div></div>
+        <div class="mini-bar-col"><div class="mini-z" style="font-size:9px;font-weight:700;color:#b45309;text-align:center;">+2.7</div><div class="mini-bar bar-a" style="height:54%;"></div><div class="mini-lbl">RPA</div></div>
+        <div class="mini-bar-col"><div class="mini-z bar-g" style="font-size:9px;font-weight:700;color:#15803d;text-align:center;">+1.4</div><div class="mini-bar bar-g" style="height:35%;"></div><div class="mini-lbl">LPA</div></div>
+        <div class="mini-bar-col"><div class="mini-z bar-g" style="font-size:9px;font-weight:700;color:#15803d;text-align:center;">−0.5</div><div class="mini-bar bar-g" style="height:12%;"></div><div class="mini-lbl">Asc Ao</div></div>
+      </div>
+      <div class="zero-line"></div>
+      <div style="margin-top:10px;">
+        <div class="hero-row"><span>MPA — Main Pulmonary Artery</span><span class="z-chip za">Z: +3.9 — Abnormal↑</span></div>
+        <div class="hero-row"><span>RPA diameter</span><span class="z-chip zb">Z: +2.7 — Borderline↑</span></div>
+        <div class="hero-row"><span>Aortic Root · STJ · Asc Ao</span><span class="z-chip zn">Normal range</span></div>
+        <div class="hero-row"><span style="color:var(--dim);font-size:11px;">BSA 0.742 m² · 16.5 kg · 102 cm</span><span style="font-family:'DM Mono',monospace;font-size:10px;color:var(--dim);">Pettersen 2008</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+</div>
+
+<div class="divider"></div>
+
+<!-- TAB SHOWCASE -->
+<section class="tabs-section" id="tabs">
+  <div class="section-wrap">
+    <div class="reveal">
+      <div class="sec-eye">15 Tabs — Every Modality</div>
+      <h2 class="sec-title">Everything in one browser tab,<br/>nothing installed</h2>
+    </div>
+    <div class="tabs-showcase reveal">
+      <div class="tab-pills" id="tabPills">
+        <button class="tab-pill active" onclick="showPanel('patient',this)">🧒 Patient</button>
+        <button class="tab-pill" onclick="showPanel('meas2d',this)">📐 2D &amp; M-Mode</button>
+        <button class="tab-pill" onclick="showPanel('doppler',this)">〰️ Spectral Doppler</button>
+        <button class="tab-pill" onclick="showPanel('colour',this)">🌈 Colour Doppler</button>
+        <button class="tab-pill" onclick="showPanel('function',this)">❤️ LV/RV Function</button>
+        <button class="tab-pill" onclick="showPanel('diastolic',this)">📉 Diastolic &amp; TDI</button>
+        <button class="tab-pill" onclick="showPanel('strain',this)">🔬 Strain</button>
+        <button class="tab-pill" onclick="showPanel('peri',this)">💧 Pericardial &amp; IVC</button>
+        <button class="tab-pill" onclick="showPanel('valves',this)">🫀 Valve Grading</button>
+        <button class="tab-pill" onclick="showPanel('impression',this)">📋 NLP Report</button>
+        <button class="tab-pill" onclick="showPanel('rhd',this)">🩺 RHD <span class="pill-new">WHF</span></button>
+        <button class="tab-pill" onclick="showPanel('zchart',this)">📊 Z-Chart</button>
+        <button class="tab-pill" onclick="showPanel('coronary',this)">🩸 Coronary</button>
+        <button class="tab-pill" onclick="showPanel('history',this)">📁 History</button>
+        <button class="tab-pill" onclick="showPanel('references',this)">📚 References</button>
+      </div>
+      <div class="tab-panels" id="tabPanels">
+
+        <div class="tab-panel active" id="panel-patient">
+          <div class="panel-desc">
+            <div class="panel-title">Patient &amp; Findings — Tab 1</div>
+            <div class="panel-sub">Complete patient demographics, 8 one-click diagnosis templates, 12-field segmental anatomy, shunt assessment, parent/guardian details, and scan technical details.</div>
+            <div class="panel-features">
+              <div class="pf-item"><div class="pf-icon">📋</div><div class="pf-text"><strong>8 diagnosis templates</strong> — Normal, VSD, ASD, TOF, Post-TOF repair, AVSD, Kawasaki, DCM. Auto-fills all fields.</div></div>
+              <div class="pf-item"><div class="pf-icon">🧩</div><div class="pf-text"><strong>Sequential segmental analysis</strong> — 12 dropdowns covering situs, connections, chambers, arch, pericardium.</div></div>
+              <div class="pf-item"><div class="pf-icon">📐</div><div class="pf-text"><strong>BSA auto-calculation</strong> — Haycock formula from weight + height.</div></div>
+              <div class="pf-item"><div class="pf-icon">🏥</div><div class="pf-text"><strong>Hospital details</strong> — Name, department, address, accreditation badges, lab license. Saved in browser.</div></div>
+              <div class="pf-item"><div class="pf-icon">👨‍👩‍👧</div><div class="pf-text"><strong>Parent/guardian</strong> — Name, relation, contact, consent status.</div></div>
+              <div class="pf-item"><div class="pf-icon">🔬</div><div class="pf-text"><strong>Scan details</strong> — Study type chips (TTE/TEE/Fetal/Stress/ICU), position, sedation, SpO₂, duration.</div></div>
+            </div>
+          </div>
+          <div class="panel-mock">
+            <div class="mock-head">Patient Details</div>
+            <div class="mock-row"><span class="mock-label">Name</span><span>Arjun Kumar</span></div>
+            <div class="mock-row"><span class="mock-label">Age / Gender</span><span>4y 3m / Male</span></div>
+            <div class="mock-row"><span class="mock-label">Weight / Height</span><span>16.5 kg / 102 cm</span></div>
+            <div class="mock-row"><span class="mock-label">BSA (Haycock)</span><span class="val-n">0.742 m²</span></div>
+            <div class="mock-row"><span class="mock-label">Indication</span><span>Murmur evaluation</span></div>
+            <div class="mock-row"><span class="mock-label">Situs</span><span>Situs Solitus</span></div>
+            <div class="mock-row"><span class="mock-label">IAS / IVS</span><span>ASD secundum / Intact</span></div>
+            <div class="mock-row"><span class="mock-label">AV / VA connection</span><span>Concordant / Concordant</span></div>
+            <div class="mock-row"><span class="mock-label">Pericardium</span><span>No effusion</span></div>
+          </div>
+        </div>
+
+        <div class="tab-panel" id="panel-meas2d">
+          <div class="panel-desc">
+            <div class="panel-title">2D &amp; M-Mode Measurements — Tab 2</div>
+            <div class="panel-sub">12-parameter BSA-indexed Z-score table plus full M-mode calculations including Teichholz EF, EPSS, and LA/Ao ratio. All auto-graded in real time.</div>
+            <div class="panel-features">
+              <div class="pf-item"><div class="pf-icon">📐</div><div class="pf-text"><strong>12 Z-score parameters</strong> — AO root, STJ, Asc Ao, MPA, RPA, LPA, LVIDd, LVIDs, IVSd, LVPWd, LA, RA.</div></div>
+              <div class="pf-item"><div class="pf-icon">📊</div><div class="pf-text"><strong>M-Mode auto-calcs</strong> — FS, Teichholz EF/EDV/ESV from LVIDd + LVIDs.</div></div>
+              <div class="pf-item"><div class="pf-icon">🔢</div><div class="pf-text"><strong>EPSS grading</strong> — E-point septal separation with auto interpretation.</div></div>
+              <div class="pf-item"><div class="pf-icon">🏥</div><div class="pf-text"><strong>LA/Ao ratio</strong> — auto-calculated with normal/borderline/elevated grading.</div></div>
+              <div class="pf-item"><div class="pf-icon">📈</div><div class="pf-text"><strong>Biplane Simpson</strong> — LVEF, LV EDV/ESV indexed to BSA (EDVi, ESVi).</div></div>
+            </div>
+          </div>
+          <div class="panel-mock">
+            <div class="mock-head">2D / M-Mode Z-Scores (BSA 0.742 m²)</div>
+            <div class="mock-row"><span class="mock-label">AO root</span><span class="val-n">18.4 mm</span><span class="mock-chip chip-g">Z: +1.2 Normal</span></div>
+            <div class="mock-row"><span class="mock-label">MPA</span><span class="val-a">21.8 mm</span><span class="mock-chip chip-r">Z: +3.9 Abnormal↑</span></div>
+            <div class="mock-row"><span class="mock-label">LVIDd</span><span class="val-n">35.8 mm</span><span class="mock-chip chip-g">Z: +0.8 Normal</span></div>
+            <div class="mock-row"><span class="mock-label">IVSd</span><span class="val-b">8.2 mm</span><span class="mock-chip chip-b">Z: +2.6 Borderline↑</span></div>
+            <div class="mock-row"><span class="mock-label">LVEF (Simpson)</span><span class="val-n">68%</span><span class="mock-chip chip-g">Normal (≥55%)</span></div>
+            <div class="mock-row"><span class="mock-label">FS (M-Mode)</span><span class="val-n">37%</span><span class="mock-chip chip-g">Normal (≥28%)</span></div>
+            <div class="mock-row"><span class="mock-label">EPSS</span><span class="val-n">4.2 mm</span><span class="mock-chip chip-g">Normal (&lt;7mm)</span></div>
+            <div class="mock-row"><span class="mock-label">LA/Ao Ratio</span><span class="val-n">1.18</span><span class="mock-chip chip-g">Normal (≤1.3)</span></div>
+          </div>
+        </div>
+
+        <div class="tab-panel" id="panel-doppler">
+          <div class="panel-desc">
+            <div class="panel-title">Spectral Doppler — Tab 3</div>
+            <div class="panel-sub">Complete PW and CW Doppler parameters with auto-calculated cardiac output. VSD and ADA gradient auto-calculated from velocity inputs.</div>
+            <div class="panel-features">
+              <div class="pf-item"><div class="pf-icon">〰️</div><div class="pf-text"><strong>PW Doppler</strong> — Transmitral E, A, E/A, DT, IVRT, Vp, E/Vp, LVOT VTI, pulmonary vein S/D/Ar.</div></div>
+              <div class="pf-item"><div class="pf-icon">⚡</div><div class="pf-text"><strong>CW Doppler</strong> — AV peak/mean gradient, PV gradient, VSD 4v² auto-gradient, PDA velocity.</div></div>
+              <div class="pf-item"><div class="pf-icon">💓</div><div class="pf-text"><strong>Cardiac Output</strong> — LVOT diameter × VTI → SV, CO, CI auto-displayed.</div></div>
+              <div class="pf-item"><div class="pf-icon">📉</div><div class="pf-text"><strong>TR/PR/PA AT</strong> — TR velocity, PR PHT, PA acceleration time.</div></div>
+            </div>
+          </div>
+          <div class="panel-mock">
+            <div class="mock-head">Spectral Doppler Summary</div>
+            <div class="mock-row"><span class="mock-label">Mitral E / A</span><span>0.88 / 0.52 m/s</span><span class="mock-chip chip-g">E/A 1.69</span></div>
+            <div class="mock-row"><span class="mock-label">Deceleration Time</span><span class="val-n">182 ms</span><span class="mock-chip chip-g">Normal</span></div>
+            <div class="mock-row"><span class="mock-label">LVOT VTI</span><span>18.4 cm</span></div>
+            <div class="mock-row"><span class="mock-label">AV Peak Velocity</span><span class="val-n">1.6 m/s</span><span class="mock-chip chip-g">Normal</span></div>
+            <div class="mock-row"><span class="mock-label">Stroke Volume</span><span class="val-n">42 mL</span></div>
+            <div class="mock-row"><span class="mock-label">Cardiac Output</span><span class="val-n">4.1 L/min</span></div>
+            <div class="mock-row"><span class="mock-label">Cardiac Index</span><span class="val-n">2.9 L/min/m²</span><span class="mock-chip chip-g">Normal</span></div>
+          </div>
+        </div>
+
+        <div class="tab-panel" id="panel-colour">
+          <div class="panel-desc">
+            <div class="panel-title">Colour Doppler — Tab 4</div>
+            <div class="panel-sub">Structured colour Doppler assessment for every intracardiac shunt, outflow tract, and valvular regurgitation. Jet widths, flow patterns, and free-text notes.</div>
+            <div class="panel-features">
+              <div class="pf-item"><div class="pf-icon">🌈</div><div class="pf-text"><strong>Shunt characterisation</strong> — IAS (L→R/R→L/bidirectional), IVS, PDA flow with jet widths.</div></div>
+              <div class="pf-item"><div class="pf-icon">🔴</div><div class="pf-text"><strong>MR jet</strong> — % LA area (trace/mild/moderate/severe/eccentric direction).</div></div>
+              <div class="pf-item"><div class="pf-icon">🔵</div><div class="pf-text"><strong>AR, PR, TR</strong> — Regurgitant jet characterisation for all 4 valves.</div></div>
+              <div class="pf-item"><div class="pf-icon">⚙️</div><div class="pf-text"><strong>LVOT / RVOT patterns</strong> — Normal laminar, subaortic/infundibular obstruction, valvular, supravalvular.</div></div>
+            </div>
+          </div>
+          <div class="panel-mock">
+            <div class="mock-head">Colour Doppler Findings</div>
+            <div class="mock-row"><span class="mock-label">IAS colour flow</span><span>Left to right shunt</span></div>
+            <div class="mock-row"><span class="mock-label">ASD jet width</span><span>12 mm</span></div>
+            <div class="mock-row"><span class="mock-label">IVS colour flow</span><span>No flow defect</span></div>
+            <div class="mock-row"><span class="mock-label">MR jet</span><span class="val-n">Trace &lt;1cm from annulus</span></div>
+            <div class="mock-row"><span class="mock-label">LVOT flow</span><span class="val-n">Normal laminar</span></div>
+            <div class="mock-row"><span class="mock-label">TR colour</span><span class="val-n">Trace TR</span></div>
+            <div class="mock-row"><span class="mock-label">PR colour</span><span class="val-n">None identified</span></div>
+          </div>
+        </div>
+
+        <div class="tab-panel" id="panel-function">
+          <div class="panel-desc">
+            <div class="panel-title">LV / RV Function — Tab 5</div>
+            <div class="panel-sub">Advanced LV and RV systolic function including LV mass, geometry, dP/dT, and comprehensive RV assessment with composite grading.</div>
+            <div class="panel-features">
+              <div class="pf-item"><div class="pf-icon">🏋️</div><div class="pf-text"><strong>LV mass &amp; geometry</strong> — Devereux formula, LV Mass Index, RWT → auto-classifies Normal/Concentric/Eccentric.</div></div>
+              <div class="pf-item"><div class="pf-icon">💉</div><div class="pf-text"><strong>LV dP/dT</strong> — from MR Doppler envelope (32/Δt method, normal ≥1000 mmHg/s).</div></div>
+              <div class="pf-item"><div class="pf-icon">📏</div><div class="pf-text"><strong>RV dimensions</strong> — Basal, longitudinal, RVOT proximal, RV free wall thickness.</div></div>
+              <div class="pf-item"><div class="pf-icon">📊</div><div class="pf-text"><strong>5 RV function parameters</strong> — TAPSE, FAC, S', MPI/Tei, dP/dT each auto-graded. Composite verdict.</div></div>
+              <div class="pf-item"><div class="pf-icon">🩺</div><div class="pf-text"><strong>RVSP / PAH</strong> — TR velocity + RAP → RVSP auto-calculated, PAH classification.</div></div>
+            </div>
+          </div>
+          <div class="panel-mock">
+            <div class="mock-head">RV Function Summary</div>
+            <div class="mock-row"><span class="mock-label">TAPSE</span><span class="val-n">22 mm</span><span class="mock-chip chip-g">✓ Normal (≥17mm)</span></div>
+            <div class="mock-row"><span class="mock-label">RV FAC</span><span class="val-n">44%</span><span class="mock-chip chip-g">✓ Normal (≥35%)</span></div>
+            <div class="mock-row"><span class="mock-label">S' TDI</span><span class="val-n">14 cm/s</span><span class="mock-chip chip-g">✓ Normal (≥9.5)</span></div>
+            <div class="mock-row"><span class="mock-label">RV MPI / Tei</span><span class="val-n">0.28</span><span class="mock-chip chip-g">✓ Normal (≤0.40)</span></div>
+            <div class="mock-row"><span class="mock-label">TR velocity / RVSP</span><span>2.5 m/s / 30 mmHg</span></div>
+            <div class="mock-row"><span class="mock-label">PAH</span><span class="val-n">No PAH (RVSP &lt;36)</span></div>
+            <div class="mock-row" style="background:var(--normal-bg);border-color:var(--normal-bd);"><span style="color:var(--normal);font-weight:700;">✅ Normal RV Function</span></div>
+          </div>
+        </div>
+
+        <div class="tab-panel" id="panel-diastolic">
+          <div class="panel-desc">
+            <div class="panel-title">Diastolic Function &amp; TDI — Tab 6</div>
+            <div class="panel-sub">Full diastolic function grading per ASE/EACVI 2016 algorithm. TDI at three annular sites with auto-calculated E/e' ratio and average.</div>
+            <div class="panel-features">
+              <div class="pf-item"><div class="pf-icon">📉</div><div class="pf-text"><strong>ASE/EACVI 2016 grading</strong> — Grade I (impaired relaxation), Grade II (pseudonormal), Grade III (restrictive).</div></div>
+              <div class="pf-item"><div class="pf-icon">🎯</div><div class="pf-text"><strong>Key variables</strong> — E, A, E/A, DT, IVRT, LA volume index, TR velocity, average E/e'.</div></div>
+              <div class="pf-item"><div class="pf-icon">📡</div><div class="pf-text"><strong>TDI — 3 sites</strong> — Septal annulus (e', a', s'), Lateral annulus (e', a', s'), Tricuspid annulus.</div></div>
+              <div class="pf-item"><div class="pf-icon">🔢</div><div class="pf-text"><strong>E/e' auto-calculation</strong> — Septal, lateral, and average E/e' with elevated flags (&gt;15 septal, &gt;13 lateral).</div></div>
+              <div class="pf-item"><div class="pf-icon">⚙️</div><div class="pf-text"><strong>LV MPI / Tei Index</strong> — With interpretation (normal &lt;0.40 TDI, &lt;0.50 PW).</div></div>
+            </div>
+          </div>
+          <div class="panel-mock">
+            <div class="mock-head">Diastolic Function</div>
+            <div class="mock-row"><span class="mock-label">E / A</span><span>0.88 / 0.52</span><span class="mock-chip chip-g">E/A 1.69</span></div>
+            <div class="mock-row"><span class="mock-label">Septal e' / s'</span><span>9 / 9 cm/s</span></div>
+            <div class="mock-row"><span class="mock-label">Lateral e' / s'</span><span>13 / 11 cm/s</span></div>
+            <div class="mock-row"><span class="mock-label">E/e' septal</span><span class="val-n">9.8</span><span class="mock-chip chip-g">Normal (&lt;15)</span></div>
+            <div class="mock-row"><span class="mock-label">E/e' average</span><span class="val-n">8.0</span><span class="mock-chip chip-g">Normal (&lt;14)</span></div>
+            <div class="mock-row" style="background:var(--blue-bg);border-color:var(--blue-bd);"><span style="color:var(--blue);font-weight:700;">Grade I — Normal Diastolic Function</span></div>
+          </div>
+        </div>
+
+        <div class="tab-panel" id="panel-strain">
+          <div class="panel-desc">
+            <div class="panel-title">Strain Imaging — Tab 7</div>
+            <div class="panel-sub">LV Global Longitudinal Strain from 3 apical views, with colour-coded gauge and clinical interpretation. RV free wall strain and LA reservoir strain.</div>
+            <div class="panel-features">
+              <div class="pf-item"><div class="pf-icon">🔬</div><div class="pf-text"><strong>LV GLS (3 views)</strong> — 4-chamber, 2-chamber, 3-chamber averaged. Normal ≤ −20%.</div></div>
+              <div class="pf-item"><div class="pf-icon">🎯</div><div class="pf-text"><strong>Auto-graded</strong> — Normal / Mildly impaired (−17 to −20%) / Moderately (−13 to −17%) / Severely (&gt;−13%).</div></div>
+              <div class="pf-item"><div class="pf-icon">📊</div><div class="pf-text"><strong>GCS, GRS, RV FWS, LA reservoir</strong> — Additional deformation parameters.</div></div>
+              <div class="pf-item"><div class="pf-icon">🖥️</div><div class="pf-text"><strong>Software tracking</strong> — GE EchoPAC, Philips QLAB, Siemens SyngoVia, Canon, TomTec, Epsilon.</div></div>
+            </div>
+          </div>
+          <div class="panel-mock">
+            <div class="mock-head">Strain Imaging</div>
+            <div class="mock-row"><span class="mock-label">GLS — 4-chamber</span><span class="val-n">−19.2%</span></div>
+            <div class="mock-row"><span class="mock-label">GLS — 2-chamber</span><span class="val-n">−20.1%</span></div>
+            <div class="mock-row"><span class="mock-label">GLS — 3-chamber</span><span class="val-n">−18.8%</span></div>
+            <div class="mock-row"><span class="mock-label" style="font-weight:700;">Average LV GLS</span><span class="val-n" style="font-weight:700;">−19.4%</span><span class="mock-chip chip-b">Mildly impaired</span></div>
+            <div class="mock-row"><span class="mock-label">RV Free Wall Strain</span><span class="val-n">−24.0%</span><span class="mock-chip chip-g">Normal</span></div>
+            <div class="mock-row"><span class="mock-label">LA Reservoir Strain</span><span class="val-n">34%</span><span class="mock-chip chip-g">Normal</span></div>
+            <div class="mock-row"><span class="mock-label">Software</span><span>GE EchoPAC</span></div>
+          </div>
+        </div>
+
+        <div class="tab-panel" id="panel-peri">
+          <div class="panel-desc">
+            <div class="panel-title">Pericardial Effusion &amp; IVC — Tab 8</div>
+            <div class="panel-sub">4-site effusion quantification with tamponade sign checklist and auto-grading. IVC collapsibility index with RAP estimation. Pleural effusion and ascites.</div>
+            <div class="panel-features">
+              <div class="pf-item"><div class="pf-icon">💧</div><div class="pf-text"><strong>4-site measurement</strong> — Posterior/Anterior (PLAX), Lateral/Apical (A4C) in mm at end-diastole.</div></div>
+              <div class="pf-item"><div class="pf-icon">⚠️</div><div class="pf-text"><strong>6 tamponade signs</strong> — RV collapse, RA inversion, IVC plethora, respiratory variation, swinging heart, pressure equalisation.</div></div>
+              <div class="pf-item"><div class="pf-icon">📏</div><div class="pf-text"><strong>Auto-grades</strong> — Trivial/Small/Moderate/Large/Tamponade physiology (red alert if ≥2 signs).</div></div>
+              <div class="pf-item"><div class="pf-icon">🩸</div><div class="pf-text"><strong>IVC collapsibility → RAP</strong> — Max/min IVC diameter → CI → estimated RAP per ASE 2010.</div></div>
+              <div class="pf-item"><div class="pf-icon">🫁</div><div class="pf-text"><strong>Pleural effusion &amp; ascites</strong> — Left/right pleural, ascites grading dropdowns.</div></div>
+            </div>
+          </div>
+          <div class="panel-mock">
+            <div class="mock-head">Pericardial &amp; IVC Assessment</div>
+            <div class="mock-row"><span class="mock-label">Posterior (PLAX)</span><span>4 mm</span></div>
+            <div class="mock-row"><span class="mock-label">Anterior (PLAX)</span><span>3 mm</span></div>
+            <div class="mock-row"><span class="mock-label">Lateral (A4C)</span><span>2 mm</span></div>
+            <div class="mock-row" style="background:var(--blue-bg);border-color:var(--blue-bd);"><span style="color:var(--blue);font-weight:700;">Small Pericardial Effusion (max 4mm)</span></div>
+            <div class="mock-row"><span class="mock-label">Tamponade signs</span><span class="val-n">None (0/6)</span></div>
+            <div class="mock-row"><span class="mock-label">IVC max / min</span><span>1.4 / 0.8 cm</span></div>
+            <div class="mock-row"><span class="mock-label">Collapsibility Index</span><span class="val-n">43%</span></div>
+            <div class="mock-row"><span class="mock-label">Estimated RAP</span><span class="val-n">5 mmHg (normal)</span></div>
+          </div>
+        </div>
+
+        <div class="tab-panel" id="panel-valves">
+          <div class="panel-desc">
+            <div class="panel-title">Valve Grading — Tab 9</div>
+            <div class="panel-sub">Auto-severity grading for all 5 valvular conditions from Doppler inputs. PS, AS, MR, TR (+ RVSP/PAH), PR — all graded per ASE/ACC/AHA 2014.</div>
+            <div class="panel-features">
+              <div class="pf-item"><div class="pf-icon">🫀</div><div class="pf-text"><strong>PS grading</strong> — Peak gradient: Mild &lt;25 / Moderate 25–50 / Severe &gt;50 mmHg.</div></div>
+              <div class="pf-item"><div class="pf-icon">❤️</div><div class="pf-text"><strong>AS grading</strong> — Peak velocity: Mild &lt;3 / Moderate 3–4 / Severe ≥4 m/s.</div></div>
+              <div class="pf-item"><div class="pf-icon">🔴</div><div class="pf-text"><strong>MR grading</strong> — Vena contracta + jet/LA area %: Mild/Moderate/Severe.</div></div>
+              <div class="pf-item"><div class="pf-icon">🔵</div><div class="pf-text"><strong>TR + RVSP</strong> — TR velocity + RAP → RVSP auto. PAH: mild/moderate/severe.</div></div>
+              <div class="pf-item"><div class="pf-icon">🫁</div><div class="pf-text"><strong>PR grading</strong> — Pressure half-time + jet/RVOT width.</div></div>
+            </div>
+          </div>
+          <div class="panel-mock">
+            <div class="mock-head">Valve Severity — Auto-Graded</div>
+            <div class="mock-row"><span class="mock-label">PS (PV vel 2.8 m/s)</span><span class="mock-chip chip-b">Moderate (grad 31 mmHg)</span></div>
+            <div class="mock-row"><span class="mock-label">AS</span><span class="mock-chip chip-g">Not entered</span></div>
+            <div class="mock-row"><span class="mock-label">MR (VC 2.5mm)</span><span class="mock-chip chip-bl">Mild</span></div>
+            <div class="mock-row"><span class="mock-label">TR (vel 2.5 m/s)</span><span class="mock-chip chip-bl">Mild</span></div>
+            <div class="mock-row"><span class="mock-label">RVSP</span><span class="val-n">30 mmHg — No PAH</span></div>
+            <div class="mock-row"><span class="mock-label">PR</span><span class="mock-chip chip-g">None / Trivial</span></div>
+          </div>
+        </div>
+
+        <div class="tab-panel" id="panel-impression">
+          <div class="panel-desc">
+            <div class="panel-title">NLP Impression &amp; Report — Tab 10</div>
+            <div class="panel-sub">AI-style NLP engine reads every dropdown, measurement, Z-score, and grade across all 15 tabs and writes a complete clinical report description in 4 output modes.</div>
+            <div class="panel-features">
+              <div class="pf-item"><div class="pf-icon">🧠</div><div class="pf-text"><strong>4 output modes</strong> — Structured (numbered), Paragraph prose, Detailed clinical, Brief summary.</div></div>
+              <div class="pf-item"><div class="pf-icon">📡</div><div class="pf-text"><strong>Reads all tabs</strong> — Segmental anatomy, shunts, all measurements, valve grades, RHD, coronary Z-scores.</div></div>
+              <div class="pf-item"><div class="pf-icon">🚦</div><div class="pf-text"><strong>Urgency flag</strong> — Normal / Cardiology review / Urgent 24–48h / Emergency (blinking on report).</div></div>
+              <div class="pf-item"><div class="pf-icon">📅</div><div class="pf-text"><strong>Follow-up recommendation</strong> — 8 preset intervals + custom date + appears on printed report.</div></div>
+              <div class="pf-item"><div class="pf-icon">✅</div><div class="pf-text"><strong>Completeness checker</strong> — 18-field validation with colour progress bar before finalising.</div></div>
+            </div>
+          </div>
+          <div class="panel-mock">
+            <div class="mock-head">NLP Generated Impression (Structured)</div>
+            <div style="background:white;border:1px solid var(--border);border-radius:6px;padding:10px;font-size:11.5px;color:var(--mist);line-height:1.7;">
+              1. Situs solitus, levocardia.<br/>
+              2. ASD secundum — left to right shunt.<br/>
+              3. Concordant AV and VA connections.<br/>
+              4. LV systolic function normal (EF 68%, FS 37%).<br/>
+              5. MPA enlarged (Z +3.9 — significantly enlarged).<br/>
+              6. Mild MR — vena contracta 2.5mm.<br/>
+              7. Moderate PS — peak gradient 31 mmHg.<br/>
+              8. No pericardial effusion.<br/>
+              9. Cardiology follow-up recommended.
+            </div>
+          </div>
+        </div>
+
+        <div class="tab-panel" id="panel-rhd">
+          <div class="panel-desc">
+            <div class="panel-title">RHD Scoring — Tab 11</div>
+            <div class="panel-sub">Full WHF 2012 echocardiographic criteria implementation. Auto-classifies as Definite / Probable / Borderline / Normal with penicillin prophylaxis guidance.</div>
+            <div class="panel-features">
+              <div class="pf-item"><div class="pf-icon">🩺</div><div class="pf-text"><strong>MV1</strong> — Pathological MR (≥2 views, jet ≥2cm, vel ≥3 m/s, pan-systolic).</div></div>
+              <div class="pf-item"><div class="pf-icon">🔬</div><div class="pf-text"><strong>MV2</strong> — Morphological features (thickening, chordal changes) — 0/1/≥2.</div></div>
+              <div class="pf-item"><div class="pf-icon">📊</div><div class="pf-text"><strong>MV3</strong> — Mitral stenosis (mean gradient ≥4 mmHg).</div></div>
+              <div class="pf-item"><div class="pf-icon">❤️</div><div class="pf-text"><strong>AV1 &amp; AV2</strong> — Pathological AR + aortic valve morphology.</div></div>
+              <div class="pf-item"><div class="pf-icon">🌍</div><div class="pf-text"><strong>Population context</strong> — High-risk endemic vs low-risk adjusts classification thresholds.</div></div>
+            </div>
+          </div>
+          <div class="panel-mock">
+            <div class="mock-head">RHD Classification (WHF 2012)</div>
+            <div class="mock-row"><span class="mock-label">MV1 — Pathological MR</span><span class="mock-chip chip-r">Positive</span></div>
+            <div class="mock-row"><span class="mock-label">MV2 — Morphology</span><span class="mock-chip chip-r">≥2 features</span></div>
+            <div class="mock-row"><span class="mock-label">MV3 — MS</span><span class="mock-chip chip-g">Absent</span></div>
+            <div class="mock-row"><span class="mock-label">AV1 — Pathological AR</span><span class="mock-chip chip-g">Absent</span></div>
+            <div class="mock-row"><span class="mock-label">Population</span><span>High-risk / endemic</span></div>
+            <div class="mock-row" style="background:var(--danger-bg);border-color:var(--danger-bd);"><span style="color:var(--danger);font-weight:700;">Definite RHD — Penicillin prophylaxis × 10 years</span></div>
+          </div>
+        </div>
+
+        <div class="tab-panel" id="panel-zchart">
+          <div class="panel-desc">
+            <div class="panel-title">Z-Score Chart Visualiser — Tab 12</div>
+            <div class="panel-sub">Visual bar chart profile of all Z-scores across 3 parameter groups. Real-time rendering, colour-coded bars, and copy summary for report pasting.</div>
+            <div class="panel-features">
+              <div class="pf-item"><div class="pf-icon">📊</div><div class="pf-text"><strong>3 parameter groups</strong> — Cardiac structures, Aorta/Great arteries, Valve annuli &amp; outflows.</div></div>
+              <div class="pf-item"><div class="pf-icon">🎨</div><div class="pf-text"><strong>Live colour bars</strong> — Green (normal), amber (borderline ±2–3), red (abnormal &gt;3).</div></div>
+              <div class="pf-item"><div class="pf-icon">🔢</div><div class="pf-text"><strong>Z-score labels</strong> — Value shown on each bar. Auto-syncs BSA from Tab 1.</div></div>
+              <div class="pf-item"><div class="pf-icon">📋</div><div class="pf-text"><strong>Copy summary</strong> — Full Z-score text for pasting directly into EMR/HIS.</div></div>
+            </div>
+          </div>
+          <div class="panel-mock">
+            <div class="mock-head">Z-Score Chart — Aorta / Great Arteries</div>
+            <div style="display:flex;align-items:flex-end;gap:6px;height:70px;margin-bottom:8px;">
+              <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;justify-content:flex-end;height:100%;"><div style="font-size:9px;font-weight:700;color:#15803d;">+1.2</div><div style="width:100%;height:30%;border-radius:3px 3px 0 0;background:linear-gradient(180deg,#16a34a,#15803d);"></div><div style="font-size:9px;color:var(--dim);">AO</div></div>
+              <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;justify-content:flex-end;height:100%;"><div style="font-size:9px;font-weight:700;color:#15803d;">+0.8</div><div style="width:100%;height:20%;border-radius:3px 3px 0 0;background:linear-gradient(180deg,#16a34a,#15803d);"></div><div style="font-size:9px;color:var(--dim);">STJ</div></div>
+              <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;justify-content:flex-end;height:100%;"><div style="font-size:9px;font-weight:700;color:#b91c1c;">+3.9</div><div style="width:100%;height:78%;border-radius:3px 3px 0 0;background:linear-gradient(180deg,#dc2626,#b91c1c);"></div><div style="font-size:9px;color:var(--dim);">MPA</div></div>
+              <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;justify-content:flex-end;height:100%;"><div style="font-size:9px;font-weight:700;color:#b45309;">+2.7</div><div style="width:100%;height:54%;border-radius:3px 3px 0 0;background:linear-gradient(180deg,#d97706,#b45309);"></div><div style="font-size:9px;color:var(--dim);">RPA</div></div>
+              <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;justify-content:flex-end;height:100%;"><div style="font-size:9px;font-weight:700;color:#15803d;">+1.4</div><div style="width:100%;height:35%;border-radius:3px 3px 0 0;background:linear-gradient(180deg,#16a34a,#15803d);"></div><div style="font-size:9px;color:var(--dim);">LPA</div></div>
+            </div>
+            <div style="height:1px;background:#d1d5db;margin-bottom:8px;"></div>
+            <div class="mock-row"><span class="mock-label">MPA</span><span class="val-a">Z: +3.9 — Significantly enlarged</span></div>
+            <div class="mock-row"><span class="mock-label">RPA</span><span class="val-b">Z: +2.7 — Borderline↑</span></div>
+          </div>
+        </div>
+
+        <div class="tab-panel" id="panel-coronary">
+          <div class="panel-desc">
+            <div class="panel-title">Coronary Artery Z-Scores — Tab 13</div>
+            <div class="panel-sub">6-segment coronary Z-scoring for Kawasaki disease. Two reference models. AHA 2017 five-tier risk classification with management guidance and aneurysm alert.</div>
+            <div class="panel-features">
+              <div class="pf-item"><div class="pf-icon">🩸</div><div class="pf-text"><strong>6 segments</strong> — LMCA, LAD proximal, LCx proximal, RCA proximal/mid/distal.</div></div>
+              <div class="pf-item"><div class="pf-icon">📊</div><div class="pf-text"><strong>2 reference models</strong> — Dallaire 2011 (primary) and Boston/McCrindle (alternate).</div></div>
+              <div class="pf-item"><div class="pf-icon">🚦</div><div class="pf-text"><strong>AHA 2017 classification</strong> — Normal / Borderline / Small / Medium / Giant aneurysm.</div></div>
+              <div class="pf-item"><div class="pf-icon">⚠️</div><div class="pf-text"><strong>Aneurysm alert</strong> — Yellow warning box with segment list and management recommendations.</div></div>
+            </div>
+          </div>
+          <div class="panel-mock">
+            <div class="mock-head">Coronary Z-Scores — Dallaire 2011</div>
+            <div class="mock-row"><span class="mock-label">LMCA</span><span>4.8 mm</span><span class="mock-chip chip-b">Z +4.9 — Small Aneurysm</span></div>
+            <div class="mock-row"><span class="mock-label">LAD proximal</span><span>3.9 mm</span><span class="mock-chip chip-b">Z +2.9 — Small Aneurysm</span></div>
+            <div class="mock-row"><span class="mock-label">LCx proximal</span><span>2.4 mm</span><span class="mock-chip chip-g">Z +1.2 — Normal</span></div>
+            <div class="mock-row"><span class="mock-label">RCA proximal</span><span>4.1 mm</span><span class="mock-chip chip-b">Z +3.6 — Small Aneurysm</span></div>
+            <div class="mock-row" style="background:var(--warn-bg);border-color:var(--warn-bd);"><span style="color:var(--warn);font-weight:700;">⚠️ Kawasaki: Small Aneurysm — Max Z +4.9</span></div>
+            <div class="mock-row"><span style="font-size:11px;color:var(--dim);">Aspirin + echo 1–2 weeks + cardiology referral</span></div>
+          </div>
+        </div>
+
+        <div class="tab-panel" id="panel-history">
+          <div class="panel-desc">
+            <div class="panel-title">History &amp; Follow-up — Tab 14</div>
+            <div class="panel-sub">Prior echo history (browser localStorage), growth Z-scores (WHO), fetal echo parameters, comparison with previous study, and follow-up recommendation.</div>
+            <div class="panel-features">
+              <div class="pf-item"><div class="pf-icon">📁</div><div class="pf-text"><strong>Prior echo history</strong> — Add previous studies with date, diagnosis, EF, measurements. Persists between sessions.</div></div>
+              <div class="pf-item"><div class="pf-icon">📊</div><div class="pf-text"><strong>Growth Z-scores</strong> — WHO 2006 reference. Weight-for-age, height-for-age, WFH. SAM/MAM alerts.</div></div>
+              <div class="pf-item"><div class="pf-icon">🤰</div><div class="pf-text"><strong>Fetal echo</strong> — GA, EFW, fetal HR, cardiothoracic ratio (auto-flags &gt;0.50), fetal rhythm, referral indication.</div></div>
+              <div class="pf-item"><div class="pf-icon">🔄</div><div class="pf-text"><strong>Comparison with prior</strong> — Overall change (improved/stable/worsened), ASD/VSD/RVSP/LVF change dropdowns.</div></div>
+            </div>
+          </div>
+          <div class="panel-mock">
+            <div class="mock-head">Prior Echo History</div>
+            <div style="background:white;border:1px solid var(--border);border-radius:6px;padding:10px;margin-bottom:8px;">
+              <div style="display:flex;justify-content:space-between;margin-bottom:5px;"><span style="background:var(--ink2);color:white;font-size:10px;font-weight:700;padding:2px 8px;border-radius:4px;font-family:'DM Mono',monospace;">2024-03-15</span><span style="font-size:11px;color:var(--dim);">AIIMS Delhi · Good</span></div>
+              <div style="font-size:13px;font-weight:700;color:var(--ink);">ASD secundum, moderate L→R shunt</div>
+              <div style="font-size:12px;color:var(--dim);">📊 EF 65%, FS 34% · 📐 ASD 12mm, RVSP 38mmHg</div>
+            </div>
+            <div class="mock-row"><span class="mock-label">Growth — WFA</span><span class="val-n">Z −0.8 — Normal</span></div>
+            <div class="mock-row"><span class="mock-label">Comparison</span><span class="val-n">Improved — mild improvement</span></div>
+          </div>
+        </div>
+
+                <div class="tab-panel" id="panel-references">
+          <div class="panel-desc">
+            <div class="panel-title">References &amp; Validation — Tab 15</div>
+            <div class="panel-sub">20 full bibliographic citations. Medical society compliance badges. Inline guideline tooltips on every card header. Legal disclaimer and intended use statement.</div>
+            <div class="panel-features">
+              <div class="pf-item"><div class="pf-icon">📚</div><div class="pf-text"><strong>20 guideline citations</strong> — Full author, journal, year, volume, DOI for every calculation.</div></div>
+              <div class="pf-item"><div class="pf-icon">🏛️</div><div class="pf-text"><strong>8 society compliance badges</strong> — ASE, ACC/AHA, WHF, ESC, WHO, IAP/PCSI, NMC India, ARDMS.</div></div>
+              <div class="pf-item"><div class="pf-icon">🔗</div><div class="pf-text"><strong>Inline tooltips</strong> — Every card header shows clickable guideline source badge.</div></div>
+              <div class="pf-item"><div class="pf-icon">⚖️</div><div class="pf-text"><strong>Legal disclaimer</strong> — CDS classification, intended users, CDSCO regulatory note, data privacy statement.</div></div>
+            </div>
+          </div>
+          <div class="panel-mock">
+            <div class="mock-head">Key References</div>
+            <div class="mock-row" style="flex-direction:column;align-items:flex-start;gap:4px;"><span style="font-size:11.5px;color:var(--ink);">Pettersen et al. <em style="color:var(--dim);">JASE</em> 2008 — Z-scores</span><div style="display:flex;gap:4px;"><span class="mock-chip chip-g">JASE 2008</span><span style="font-size:9px;padding:2px 6px;border-radius:3px;background:var(--page);border:1px solid var(--border);font-family:'DM Mono',monospace;color:var(--dim);">DOI:10.1016/j.echo.2008</span></div></div>
+            <div class="mock-row" style="flex-direction:column;align-items:flex-start;gap:4px;"><span style="font-size:11.5px;color:var(--ink);">Remenyi et al. <em style="color:var(--dim);">Nat Rev Cardiol</em> 2012 — WHF RHD</span><div style="display:flex;gap:4px;"><span class="mock-chip" style="background:#fef3c7;color:var(--amber);border:1px solid #fcd34d;font-size:10px;padding:2px 8px;border-radius:4px;font-weight:700;">WHF 2012</span></div></div>
+            <div class="mock-row" style="flex-direction:column;align-items:flex-start;gap:4px;"><span style="font-size:11.5px;color:var(--ink);">McCrindle et al. <em style="color:var(--dim);">Circulation</em> 2017 — Kawasaki</span><div style="display:flex;gap:4px;"><span class="mock-chip chip-bl">AHA 2017</span></div></div>
+            <div class="mock-row" style="flex-direction:column;align-items:flex-start;gap:4px;"><span style="font-size:11.5px;color:var(--ink);">Nishimura et al. <em style="color:var(--dim);">JACC</em> 2014 — VHD Guidelines</span><div style="display:flex;gap:4px;"><span class="mock-chip chip-bl">ACC/AHA 2014</span></div></div>
+          </div>
+        </div>
+
+      </div><!-- /tab-panels -->
+    </div><!-- /tabs-showcase -->
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- FEATURES GRID -->
+<section class="features-section" id="features">
+  <div class="section-wrap">
+    <div class="reveal" style="text-align:center;">
+      <div class="sec-eye">All Features</div>
+      <h2 class="sec-title">Built around real pediatric cardiology workflow</h2>
+      <p class="sec-sub" style="margin:0 auto;">Every feature designed with the reporting cardiologist in mind — not generic software.</p>
+    </div>
+    <div class="features-grid">
+      <div class="feat-card reveal"><div class="feat-icon fi-teal">📐</div><div class="feat-title">BSA-Indexed Z-Scores</div><div class="feat-desc">12 cardiac parameters with real-time Z-score calculation using Pettersen 2008. Haycock BSA formula. Color-coded normal/borderline/abnormal.</div><span class="feat-tag tag-core">Core</span></div>
+      <div class="feat-card reveal"><div class="feat-icon fi-amber">📊</div><div class="feat-title">Z-Score Chart Visualiser</div><div class="feat-desc">Live bar chart across 18 parameters in 3 groups. Bars render in real-time — green/amber/red. Copy-to-clipboard summary for EMR pasting.</div><span class="feat-tag tag-new">New</span></div>
+      <div class="feat-card reveal"><div class="feat-icon fi-red">🩺</div><div class="feat-title">RHD Scoring — WHF 2012</div><div class="feat-desc">Full WHO/WHF echocardiographic criteria. MV pathological MR + morphology, MS, AV AR + morphology. Definite/Probable/Borderline/Normal with prophylaxis guidance.</div><span class="feat-tag tag-new">New</span></div>
+      <div class="feat-card reveal"><div class="feat-icon fi-blue">🩸</div><div class="feat-title">Coronary Artery Z-Scores</div><div class="feat-desc">6-segment Kawasaki assessment. Dallaire 2011 + Boston/McCrindle models. AHA 2017 five-tier classification. Giant aneurysm alert with management guidance.</div><span class="feat-tag tag-new">New</span></div>
+      <div class="feat-card reveal"><div class="feat-icon fi-green">🫀</div><div class="feat-title">Auto-Severity Valve Grading</div><div class="feat-desc">PS, AS, MR, TR, PR severity auto-graded from Doppler inputs per ASE/ACC/AHA 2014. RVSP + PAH classification. Feeds automatically into NLP report.</div><span class="feat-tag tag-core">Core</span></div>
+      <div class="feat-card reveal"><div class="feat-icon fi-purple">🧠</div><div class="feat-title">NLP Report Generator</div><div class="feat-desc">Reads all 15 tabs and generates clinical paragraph or numbered impression in 4 modes: structured, paragraph prose, detailed clinical, brief summary.</div><span class="feat-tag tag-new">New</span></div>
+      <div class="feat-card reveal"><div class="feat-icon fi-pink">❤️</div><div class="feat-title">RV Function Assessment</div><div class="feat-desc">TAPSE, FAC, S' TDI, MPI/Tei, dP/dT — each auto-graded with status chips. Composite RV function verdict. RV dimensions.</div><span class="feat-tag tag-new">New</span></div>
+      <div class="feat-card reveal"><div class="feat-icon fi-slate">📉</div><div class="feat-title">Diastolic Function Grading</div><div class="feat-desc">ASE/EACVI 2016 algorithm. E/A, DT, IVRT, average E/e' via TDI, LA volume index, TR velocity — Grade I/II/III auto-classification.</div><span class="feat-tag tag-new">New</span></div>
+      <div class="feat-card reveal"><div class="feat-icon fi-orange">🔬</div><div class="feat-title">Strain / Deformation Imaging</div><div class="feat-desc">LV GLS (3 views averaged), GCS, GRS, RV free wall strain, LA reservoir strain. Vendor tracking. Normal ≤ −20% with colour gauge.</div><span class="feat-tag tag-new">New</span></div>
+      <div class="feat-card reveal"><div class="feat-icon fi-teal">💧</div><div class="feat-title">Pericardial Effusion Grading</div><div class="feat-desc">4-site quantification (mm). 6 tamponade sign checkboxes — auto-grades Trivial/Small/Moderate/Large/Tamponade. IVC collapsibility → RAP estimation.</div><span class="feat-tag tag-new">New</span></div>
+      <div class="feat-card reveal"><div class="feat-icon fi-amber">✍️</div><div class="feat-title">Dual Digital Signatures</div><div class="feat-desc">Draw-on-canvas or type-to-sign for both reporting cardiologist and sonographer. Timestamps. Mirrors into printed report signature block.</div><span class="feat-tag tag-new">New</span></div>
+      <div class="feat-card reveal"><div class="feat-icon fi-green">📋</div><div class="feat-title">Report Completeness Checker</div><div class="feat-desc">18-field validation with colour progress bar. Green/amber/red. Shows tick/cross per field before you finalise. Prevents incomplete reports.</div><span class="feat-tag tag-new">New</span></div>
+      <div class="feat-card reveal"><div class="feat-icon fi-red">🪪</div><div class="feat-title">Report ID &amp; Status</div><div class="feat-desc">Auto-generated ECH-YYMMDD-XXXX unique ID. Draft/Preliminary/Final/Amended status badge. Draft watermark overlaid on report body.</div><span class="feat-tag tag-new">New</span></div>
+      <div class="feat-card reveal"><div class="feat-icon fi-blue">🏥</div><div class="feat-title">Hospital Letterhead</div><div class="feat-desc">Hospital name, dept, address, accreditation badges (NABH/JCI/ISO), lab license, contact. Saved in browser localStorage. Live preview on report.</div><span class="feat-tag tag-new">New</span></div>
+      <div class="feat-card reveal"><div class="feat-icon fi-purple">📁</div><div class="feat-title">Echo History &amp; Comparison</div><div class="feat-desc">Prior study entries (date/diagnosis/EF). Browser-persisted. Comparison with previous: improved/stable/worsened with per-finding change dropdowns.</div><span class="feat-tag tag-new">New</span></div>
+      <div class="feat-card reveal"><div class="feat-icon fi-pink">📚</div><div class="feat-title">20 Guideline Citations</div><div class="feat-desc">Every calculation mapped to its source with full DOI. 8 medical society compliance badges. Inline tooltips on every card header.</div><span class="feat-tag tag-ref">Reference</span></div>
+      <div class="feat-card reveal"><div class="feat-icon fi-slate">🔬</div><div class="feat-title">Equipment Logging</div><div class="feat-desc">Machine (Philips EPIQ, GE Vivid, Siemens, Canon, Mindray), transducer, frequency. Appears on every printed report.</div><span class="feat-tag tag-new">New</span></div>
+      <div class="feat-card reveal"><div class="feat-icon fi-orange">🤰</div><div class="feat-title">Fetal Echo Parameters</div><div class="feat-desc">GA, EFW, fetal HR, cardiothoracic ratio (auto-flags &gt;0.50 cardiomegaly), fetal rhythm (incl. complete heart block), referral indication.</div><span class="feat-tag tag-new">New</span></div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- MEASUREMENT MODALITIES -->
+<section class="modalities-section" id="modalities">
+  <div class="section-wrap">
+    <div class="reveal" style="text-align:center;">
+      <div class="sec-eye">7 Echo Modalities — Separate Tabs</div>
+      <h2 class="sec-title">Every modality in its own focused tab</h2>
+      <p class="sec-sub" style="margin:0 auto;">Nothing crowded together — each modality fully expanded with all parameters.</p>
+    </div>
+    <div class="modalities-grid">
+      <div class="mod-card reveal"><div class="mod-card-icon">📐</div><div class="mod-card-title">2D &amp; M-Mode</div><div class="mod-card-items">12 BSA-indexed Z-scores · M-Mode calcs (FS, Teichholz EF, EPSS, LA/Ao) · Biplane Simpson LVEF/volumes · LV EDVi, ESVi</div></div>
+      <div class="mod-card reveal"><div class="mod-card-icon">〰️</div><div class="mod-card-title">Spectral Doppler</div><div class="mod-card-items">PW transmitral E/A/DT/IVRT/Vp · Pulmonary vein S/D/Ar · CW aortic &amp; pulmonary gradients · VSD 4v² gradient · PDA · LVOT VTI → CO/CI</div></div>
+      <div class="mod-card reveal"><div class="mod-card-icon">🌈</div><div class="mod-card-title">Colour Doppler</div><div class="mod-card-items">IAS / IVS / PDA shunt flow · MR, AR, TR, PR jet characterisation · LVOT/RVOT flow patterns · Nyquist/colour map settings</div></div>
+      <div class="mod-card reveal"><div class="mod-card-icon">❤️</div><div class="mod-card-title">LV / RV Function</div><div class="mod-card-items">LV mass + geometry · LV dP/dT · CO display · RV: TAPSE, FAC, S', MPI, dP/dT · Composite RV grade · RVSP/PAH</div></div>
+      <div class="mod-card reveal"><div class="mod-card-icon">📉</div><div class="mod-card-title">Diastolic &amp; TDI</div><div class="mod-card-items">E/A, DT, IVRT, E/Vp · Pulmonary vein · TDI at 3 annular sites · E/e' auto-calculated · LA volume index · ASE 2016 grading</div></div>
+      <div class="mod-card reveal"><div class="mod-card-icon">🔬</div><div class="mod-card-title">Strain Imaging</div><div class="mod-card-items">LV GLS 3-view average · GCS, GRS · RV free wall strain · LA reservoir strain · Vendor/software tracking · Colour gauge</div></div>
+      <div class="mod-card reveal"><div class="mod-card-icon">💧</div><div class="mod-card-title">Pericardial &amp; IVC</div><div class="mod-card-items">4-site pericardial measurement · 6 tamponade signs · Auto-grade · IVC collapsibility → RAP · Hepatic vein flow · Pleural effusion · Ascites</div></div>
+      <div class="mod-card reveal"><div class="mod-card-icon">🫀</div><div class="mod-card-title">Valve Grading</div><div class="mod-card-items">PS, AS, MR, TR, PR severity auto-graded · RVSP + PAH classification · Valve morphology dropdowns · Severity feeds NLP impression</div></div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- REPORT PREVIEW -->
+<section class="report-section" id="report">
+  <div class="section-wrap">
+    <div class="reveal">
+      <div class="sec-eye">Authenticated Report</div>
+      <h2 class="sec-title">Print-ready reports with full<br/>institutional authentication</h2>
+    </div>
+    <div class="report-showcase">
+      <div class="report-mock reveal">
+        <div class="report-mock-bar">
+          <div class="rmd" style="background:#ef4444;"></div>
+          <div class="rmd" style="background:#f59e0b;"></div>
+          <div class="rmd" style="background:#22c55e;"></div>
+          <span style="font-size:10px;color:#9ca3af;margin-left:6px;">EchoReport Pro v3.0 — Report Preview</span>
+        </div>
+        <div class="report-mock-body">
+          <div class="rm-status">&#x2705; FINAL REPORT &nbsp;·&nbsp; ECH-250607-A4X2</div>
+          <div class="rm-hosp">
+            <div class="rm-logo">🏥</div>
+            <div>
+              <div class="rm-h-name">Apollo Children's Hospital</div>
+              <div class="rm-h-sub">Dept. of Pediatric Cardiology &nbsp;·&nbsp; 21 Greams Road, Chennai 600006</div>
+              <div class="rm-accred"><span class="rm-badge">NABH</span><span class="rm-badge">JCI</span><span class="rm-badge">ISO 9001</span></div>
+            </div>
+            <div style="margin-left:auto;text-align:right;font-size:10px;color:var(--dim);">+91 44 2829 0000<br/>cardio@apollo.com</div>
+          </div>
+          <div class="rm-title">Pediatric Echocardiography Report</div>
+          <hr class="rm-divider"/>
+          <div class="rm-field-row"><div><strong>Patient:</strong> Arjun Kumar</div><div><strong>Age/Gender:</strong> 4y 3m / Male</div></div>
+          <div class="rm-field-row"><div><strong>Weight:</strong> 16.5 kg &nbsp;·&nbsp; <strong>BSA:</strong> 0.742 m²</div><div><strong>HR:</strong> 98 bpm &nbsp;·&nbsp; <strong>SpO₂:</strong> 98%</div></div>
+          <div class="rm-field-row"><div><strong>Date:</strong> 07/06/2025</div><div><strong>Indication:</strong> Murmur evaluation</div></div>
+          <div class="rm-field-row"><div><strong>Ref. Doctor:</strong> Dr. Ramesh Kumar, Pediatrics</div><div><strong>Study:</strong> TTE · Good quality · 25 min</div></div>
+          <hr class="rm-divider"/>
+          <div class="rm-sec">Segmental Anatomy &amp; Shunts</div>
+          <div class="rm-text">Situs solitus, levocardia. ASD secundum with left to right shunt. IVS intact — no VSD. No PDA. Concordant AV and VA connections. No pericardial effusion. Hepatic veins normal.</div>
+          <hr class="rm-thin"/>
+          <div class="rm-sec">Key Measurements</div>
+          <div class="rm-text">MPA 21.8mm (Z +3.9 Abnormal↑) · AO root 18.4mm (Z +1.2 Normal) · LVIDd 35.8mm (Z +0.8 Normal) · LVEF 68% · FS 37% · GLS −19.4% · RVSP 30 mmHg</div>
+          <hr class="rm-thin"/>
+          <div class="rm-sec">Valve Assessment &amp; Equipment</div>
+          <div class="rm-text">MV: Trivial MR · AV: Normal, no AS/AR · PV: Moderate PS (grad 31 mmHg) · TV: Mild TR · Equipment: Philips EPIQ 7, S8-3 probe, 3–8 MHz</div>
+          <hr class="rm-divider"/>
+          <div class="rm-sec">IMPRESSION</div>
+          <div class="rm-impression">1. Situs solitus, levocardia.
+2. ASD secundum — left to right shunt.
+3. Moderate pulmonary stenosis — peak gradient 31 mmHg.
+4. MPA significantly enlarged (Z +3.9, BSA-indexed).
+5. Normal LV systolic function (EF 68%, FS 37%, GLS −19.4%).
+6. Diastolic function: Grade I — normal.
+7. No pericardial effusion. RVSP 30 mmHg — No PAH.
+8. Cardiology review and intervention planning recommended.
+Follow-up echo: 3 months.</div>
+          <div class="rm-sig">
+            <div class="rm-sig-col">
+              <div style="font-style:italic;font-size:13px;font-family:Georgia;color:var(--ink2);margin-bottom:3px;">Dr. T. Arasan</div>
+              <div class="rm-sig-name">Dr. T. Arasan</div>
+              <div class="rm-sig-sub">DM Pediatric Cardiology · Reg: MCI-2019-12345</div>
+              <div style="font-size:9px;color:var(--dim);">Reporting Cardiologist · Signed 10:42 AM</div>
+            </div>
+            <div class="rm-sig-col">
+              <div style="font-style:italic;font-size:13px;font-family:Georgia;color:var(--ink2);margin-bottom:3px;">Ms. Priya V.</div>
+              <div class="rm-sig-name">Ms. Priya Venkat</div>
+              <div class="rm-sig-sub">ARDMS · RDCS-PE · Cert: ARDMS-2021-X</div>
+              <div style="font-size:9px;color:var(--dim);">Performing Sonographer · Signed 10:40 AM</div>
+            </div>
+          </div>
+          <div class="rm-footer">Generated: 07/06/2025 10:42 AM &nbsp;·&nbsp; EchoReport Pro v3.0 &nbsp;·&nbsp; Z-scores: Pettersen 2008 &nbsp;·&nbsp; Coronary: Dallaire 2011 &nbsp;·&nbsp; RHD: WHF 2012 &nbsp;·&nbsp; VHD: ACC/AHA 2014<br/>This report is a clinical decision support tool and does not replace professional clinical judgment. All reports require authorisation by a licensed medical practitioner.</div>
+        </div>
+      </div>
+      <div class="report-features-list reveal" style="transition-delay:.1s;">
+        <div class="rfl"><div class="rfl-icon fi-teal">🏥</div><div><div class="rfl-title">Institutional Letterhead</div><div class="rfl-desc">Hospital name, dept, address, accreditation badges (NABH/JCI/ISO/NABL), lab license, contact. Saved in browser. Live preview as you type.</div></div></div>
+        <div class="rfl"><div class="rfl-icon fi-amber">🪪</div><div><div class="rfl-title">Report ID &amp; Status Badge</div><div class="rfl-desc">Auto-generated ECH-YYMMDD-XXXX unique ID. Draft/Preliminary/Final/Amended status badge. Watermark overlaid on draft/preliminary reports.</div></div></div>
+        <div class="rfl"><div class="rfl-icon fi-green">✍️</div><div><div class="rfl-title">Dual Authenticated Signatures</div><div class="rfl-desc">Draw-on-canvas or type-to-sign for reporting cardiologist and sonographer. Timestamps recorded. Side-by-side on printed report.</div></div></div>
+        <div class="rfl"><div class="rfl-icon fi-blue">⚙️</div><div><div class="rfl-title">Equipment &amp; Credentials</div><div class="rfl-desc">Echo machine model, transducer, imaging frequency on report. Doctor MCI reg. no., ARDMS/RDCS-PE sonographer credential number.</div></div></div>
+        <div class="rfl"><div class="rfl-icon fi-red">⚖️</div><div><div class="rfl-title">Clinical Disclaimer &amp; Guideline Statement</div><div class="rfl-desc">Standard disclaimer + full guideline concordance statement (Pettersen, Dallaire, WHF, ACC/AHA) on every printed report.</div></div></div>
+        <div class="rfl"><div class="rfl-icon fi-purple">🖨️</div><div><div class="rfl-title">Print-Ready A4 Layout</div><div class="rfl-desc">Browser print → full A4 with 18mm margins. All UI chrome hidden. Letterhead, signatures, follow-up box, disclaimer preserved in print.</div></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- SOCIETIES -->
+<section class="societies-section" id="references">
+  <div class="section-wrap">
+    <div class="reveal" style="text-align:center;">
+      <div class="sec-eye">Guideline Compliance — 8 Medical Societies</div>
+      <h2 class="sec-title">Every calculation follows published<br/>peer-reviewed standards</h2>
+    </div>
+    <div class="soc-grid">
+      <div class="soc-card reveal"><div class="soc-icon">🇺🇸</div><div class="soc-name">ASE</div><div class="soc-detail">American Society of Echocardiography — Valve grading, chamber quantification, Doppler normals, TDI, RV assessment, diastolic grading</div><span class="soc-badge sb-impl">&#x2713; Implemented</span></div>
+      <div class="soc-card reveal"><div class="soc-icon">🇺🇸</div><div class="soc-name">ACC / AHA</div><div class="soc-detail">VHD Guidelines 2014, CHD Guidelines 2018, Kawasaki Scientific Statement 2017</div><span class="soc-badge sb-impl">&#x2713; Implemented</span></div>
+      <div class="soc-card reveal"><div class="soc-icon">🌍</div><div class="soc-name">WHF 2012</div><div class="soc-detail">World Heart Federation RHD echocardiographic diagnostic criteria — all 4 classification tiers with prophylaxis guidance</div><span class="soc-badge sb-impl">&#x2713; Implemented</span></div>
+      <div class="soc-card reveal"><div class="soc-icon">🇪🇺</div><div class="soc-name">ESC / EACTS</div><div class="soc-detail">VHD Guidelines 2021, CHD Guidelines 2020. Complementary to ASE criteria throughout.</div><span class="soc-badge sb-ref">&#x1F4DA; Reference</span></div>
+      <div class="soc-card reveal"><div class="soc-icon">🌐</div><div class="soc-name">WHO</div><div class="soc-detail">Growth reference standards 2006/2007 — weight-for-age, height-for-age, weight-for-height Z-scores. SAM/MAM alerts.</div><span class="soc-badge sb-impl">&#x2713; Implemented</span></div>
+      <div class="soc-card reveal"><div class="soc-icon">🇮🇳</div><div class="soc-name">NMC / IAP India</div><div class="soc-detail">National Medical Commission registration documentation, Indian pediatric cardiology practice context</div><span class="soc-badge sb-ref">&#x1F4CB; Framework</span></div>
+      <div class="soc-card reveal"><div class="soc-icon">🔬</div><div class="soc-name">ARDMS</div><div class="soc-detail">American Registry for Diagnostic Medical Sonography — RDCS-PE credential framework for sonographer documentation</div><span class="soc-badge sb-ref">&#x1F4CB; Framework</span></div>
+      <div class="soc-card reveal"><div class="soc-icon">📋</div><div class="soc-name">IAC 2023</div><div class="soc-detail">Intersocietal Accreditation Commission — echocardiography lab accreditation standards, equipment and documentation requirements</div><span class="soc-badge sb-ref">&#x1F4CB; Framework</span></div>
+    </div>
+    <div class="ref-grid" style="margin-top:32px;">
+      <div class="ref-item reveal"><div class="ref-num">1</div><div class="ref-body"><div class="ref-cite"><strong>Pettersen et al.</strong> Regression equations for Z-scores of cardiac structures. <em>J Am Soc Echocardiogr.</em> 2008;21(8):922–34.</div><div class="ref-badges"><span class="rb rb-j">JASE 2008</span><span class="rb rb-d">DOI: 10.1016/j.echo.2008.01.010</span></div></div></div>
+      <div class="ref-item reveal"><div class="ref-num">2</div><div class="ref-body"><div class="ref-cite"><strong>Remenyi et al.</strong> WHF criteria for echocardiographic diagnosis of RHD. <em>Nat Rev Cardiol.</em> 2012;9(5):297–309.</div><div class="ref-badges"><span class="rb rb-w">WHF 2012</span><span class="rb rb-d">DOI: 10.1038/nrcardio.2012.7</span></div></div></div>
+      <div class="ref-item reveal"><div class="ref-num">3</div><div class="ref-body"><div class="ref-cite"><strong>McCrindle et al.</strong> AHA Scientific Statement — Kawasaki disease. <em>Circulation.</em> 2017;135:e927–e999.</div><div class="ref-badges"><span class="rb rb-g">AHA 2017</span><span class="rb rb-d">DOI: 10.1161/CIR.0000000000000484</span></div></div></div>
+      <div class="ref-item reveal"><div class="ref-num">4</div><div class="ref-body"><div class="ref-cite"><strong>Dallaire &amp; Dahdah.</strong> New equations for coronary artery Z-scores in children. <em>J Am Soc Echocardiogr.</em> 2011;24(1):60–74.</div><div class="ref-badges"><span class="rb rb-j">JASE 2011</span><span class="rb rb-d">DOI: 10.1016/j.echo.2010.10.004</span></div></div></div>
+      <div class="ref-item reveal"><div class="ref-num">5</div><div class="ref-body"><div class="ref-cite"><strong>Nishimura et al.</strong> ACC/AHA guideline — management of valvular heart disease. <em>JACC.</em> 2014;63(22):e57–e185.</div><div class="ref-badges"><span class="rb rb-g">ACC/AHA 2014</span><span class="rb rb-d">DOI: 10.1016/j.jacc.2014.02.536</span></div></div></div>
+      <div class="ref-item reveal"><div class="ref-num">6</div><div class="ref-body"><div class="ref-cite"><strong>Nagueh et al.</strong> Recommendations for evaluation of LV diastolic function. <em>J Am Soc Echocardiogr.</em> 2016;29(4):277–314.</div><div class="ref-badges"><span class="rb rb-j">JASE 2016</span><span class="rb rb-d">DOI: 10.1016/j.echo.2016.01.011</span></div></div></div>
+      <div class="ref-item reveal"><div class="ref-num">7</div><div class="ref-body"><div class="ref-cite"><strong>Lang et al.</strong> Recommendations for cardiac chamber quantification. <em>J Am Soc Echocardiogr.</em> 2015;28(1):1–39.</div><div class="ref-badges"><span class="rb rb-g">ASE/EACVI 2015</span><span class="rb rb-d">DOI: 10.1016/j.echo.2014.10.003</span></div></div></div>
+      <div class="ref-item reveal"><div class="ref-num">8</div><div class="ref-body"><div class="ref-cite"><strong>Haycock et al.</strong> Geometric method for measuring body surface area. <em>J Pediatr.</em> 1978;93(1):62–66.</div><div class="ref-badges"><span class="rb rb-j">J Pediatr 1978</span><span class="rb rb-d">DOI: 10.1016/S0022-3476(78)80601-5</span></div></div></div>
+    </div>
+    <div style="text-align:center;margin-top:16px;"><a href="pediatric-echo-complete.html" class="btn-outline" style="font-size:13px;">View all 20 references in the app References tab &#x2192;</a></div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- WORKFLOW -->
+<section class="workflow-section">
+  <div class="section-wrap">
+    <div style="text-align:center;" class="reveal">
+      <div class="sec-eye">How It Works</div>
+      <h2 class="sec-title">Complete authenticated report in under 5 minutes</h2>
+    </div>
+    <div class="workflow-steps">
+      <div class="workflow-step reveal"><div class="step-circle">🏥<div class="step-n">1</div></div><div class="step-title">Hospital Setup</div><div class="step-desc">Enter hospital details once — saved permanently in browser. Letterhead appears on every report automatically.</div></div>
+      <div class="workflow-step reveal" style="transition-delay:.08s;"><div class="step-circle">🧒<div class="step-n">2</div></div><div class="step-title">Patient &amp; Findings</div><div class="step-desc">Load an 8-diagnosis template or fill patient details, segmental anatomy, shunts. BSA auto-calculates.</div></div>
+      <div class="workflow-step reveal" style="transition-delay:.16s;"><div class="step-circle">📐<div class="step-n">3</div></div><div class="step-title">Enter Measurements</div><div class="step-desc">Fill relevant modality tabs — 2D/M-Mode, Doppler, colour, function, strain. All auto-calculated in real time.</div></div>
+      <div class="workflow-step reveal" style="transition-delay:.24s;"><div class="step-circle">🧠<div class="step-n">4</div></div><div class="step-title">Generate NLP Report</div><div class="step-desc">Click Generate — NLP reads all 15 tabs and writes complete clinical impression in chosen format.</div></div>
+      <div class="workflow-step reveal" style="transition-delay:.32s;"><div class="step-circle">📄<div class="step-n">5</div></div><div class="step-title">Authenticate &amp; Share</div><div class="step-desc">Sign digitally. Check completeness (18 fields). Print to A4 PDF or send summary via WhatsApp.</div></div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- SHARING -->
+<section class="sharing-section" id="sharing">
+  <div class="section-wrap">
+    <div class="reveal">
+      <div class="sec-eye">Instant Sharing</div>
+      <h2 class="sec-title">Send the report before<br/>the patient leaves the clinic</h2>
+    </div>
+    <div class="sharing-grid">
+      <div class="reveal">
+        <div class="wa-mock">
+          <div class="wa-header"><div class="wa-avatar">👨‍👩‍👧</div><div><div class="wa-n">Patient Parent</div><div class="wa-s">online</div></div></div>
+          <div class="wa-bubble">
+            <strong>📋 PEDIATRIC ECHOCARDIOGRAPHY REPORT<br/><em style="color:#6b7280;font-size:10.5px;">Apollo Children's Hospital</em></strong>
+            <div class="wa-line"></div>
+            <b>Patient:</b> Arjun K. &nbsp;&middot;&nbsp; <b>Age:</b> 4y 3m<br/>
+            <b>Date:</b> 07/06/2025
+            <div class="wa-line"></div>
+            <b>IMPRESSION:</b><br/>
+            1. ASD secundum — L&#x2192;R shunt.<br/>
+            2. Moderate PS — gradient 31 mmHg.<br/>
+            3. MPA enlarged (Z +3.9).<br/>
+            4. Normal LV function (EF 68%).<br/>
+            5. Cardiology review recommended.
+            <div class="wa-line"></div>
+            <span style="font-size:10px;color:#9ca3af;font-style:italic;">EchoReport Pro · Consult your cardiologist.</span><br/>
+            <span style="font-size:10px;color:#075e54;">&#x1F4DE; +91 44 2829 0000</span>
+            <div class="wa-time">10:42 AM &#x2713;&#x2713;</div>
+          </div>
+        </div>
+      </div>
+      <div class="sharing-list reveal" style="transition-delay:.1s;">
+        <div class="sl-item"><div class="sl-icon">💬</div><div><div class="sl-title">WhatsApp Report Sharing</div><div class="sl-desc">Enter any mobile number. Full formatted report with patient details, impression, RVSP, RHD result, and hospital phone sent instantly.</div></div></div>
+        <div class="sl-item"><div class="sl-icon">🖨️</div><div><div class="sl-title">Print / PDF Export</div><div class="sl-desc">One-click browser print. Print to paper for clinical file or save as PDF. Full A4 layout with letterhead, dual signatures, guidelines footer.</div></div></div>
+        <div class="sl-item"><div class="sl-icon">📋</div><div><div class="sl-title">Copy-to-Clipboard</div><div class="sl-desc">Z-score summary, RHD impression, coronary Z-score report — each has individual copy button for pasting into HIS or EMR.</div></div></div>
+        <div class="sl-item"><div class="sl-icon">🔒</div><div><div class="sl-title">100% Local — Zero Server Upload</div><div class="sl-desc">All calculations happen entirely in the browser. No patient data is ever transmitted to any server. Works fully offline once loaded.</div></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-section">
+  <div class="cta-inner reveal">
+    <h2 class="cta-title">Start your first complete report<br/><em style="color:var(--teal);">right now</em></h2>
+    <p class="cta-sub">No installation. No login. No server. Just open the HTML file and start reporting. Hospital details save permanently in your browser.</p>
+    <div class="cta-actions">
+      <a href="pediatric-echo-complete.html" class="btn-primary" style="font-size:15px;padding:14px 30px;">
+        <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+        Launch EchoReport Pro
+      </a>
+      <a href="#features" class="btn-outline" style="font-size:15px;padding:14px 30px;">Explore Features</a>
+    </div>
+    <div class="cta-note">&#x2713; 15 clinical modules &nbsp;&middot;&nbsp; &#x2713; 7 echo modalities &nbsp;&middot;&nbsp; &#x2713; 20 guideline citations &nbsp;&middot;&nbsp; &#x2713; No data upload &nbsp;&middot;&nbsp; &#x2713; Works offline</div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-brand">EchoReport <span>Pro</span> &nbsp;&middot;&nbsp; <span style="font-size:13px;color:#9ca3af;font-family:'DM Sans',sans-serif;font-weight:400;">Complete Edition v3.0</span></div>
+    <ul class="footer-links">
+      <li><a href="#features">Features</a></li>
+      <li><a href="#modalities">Modalities</a></li>
+      <li><a href="#report">Report</a></li>
+      <li><a href="#references">References</a></li>
+      <li><a href="pediatric-echo-complete.html">Launch App</a></li>
+    </ul>
+    <div class="footer-copy">&#169; 2025 EchoReport Pro &nbsp;&middot;&nbsp; Clinical reporting aid &nbsp;&middot;&nbsp; All reports require licensed physician authorisation</div>
+  </div>
+</footer>
+
+<script>
+window.addEventListener('scroll',()=>{
+  document.getElementById('mainNav').classList.toggle('scrolled',window.scrollY>40);
+});
+function showPanel(name,btn){
+  document.querySelectorAll('.tab-pill').forEach(b=>b.classList.remove('active'));
+  document.querySelectorAll('.tab-panel').forEach(p=>p.classList.remove('active'));
+  btn.classList.add('active');
+  const panel=document.getElementById('panel-'+name);
+  if(panel)panel.classList.add('active');
+}
+const observer=new IntersectionObserver((entries)=>{
+  entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible');});
+},{threshold:0.1,rootMargin:'0px 0px -40px 0px'});
+document.querySelectorAll('.reveal').forEach(el=>observer.observe(el));
+document.querySelectorAll('.features-grid .feat-card').forEach((c,i)=>{c.style.transitionDelay=(i*0.06)+'s';});
+document.querySelectorAll('.modalities-grid .mod-card').forEach((c,i)=>{c.style.transitionDelay=(i*0.06)+'s';});
+document.querySelectorAll('.soc-grid .soc-card').forEach((c,i)=>{c.style.transitionDelay=(i*0.05)+'s';});
+document.querySelectorAll('.ref-grid .ref-item').forEach((c,i)=>{c.style.transitionDelay=(i*0.05)+'s';});
+window.addEventListener('load',()=>{
+  document.querySelectorAll('.mini-bar').forEach(b=>{
+    const h=b.style.height;b.style.height='0%';
+    setTimeout(()=>{b.style.height=h;},400);
+  });
+});
+</script>
+</body>
+</html>
