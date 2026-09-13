@@ -22,6 +22,8 @@
 body{font-family:'Source Sans 3',sans-serif;background:var(--g50);color:var(--g800);font-size:15px;line-height:1.6;}
 
 .showcase-banner{background:var(--accent);color:var(--navy);text-align:center;padding:10px 20px;font-weight:600;font-size:13px;}
+.disclaimer-banner{background:var(--borderline-bg);color:var(--g800);text-align:center;padding:9px 20px;font-size:12.5px;font-weight:500;border-bottom:1px solid var(--borderline-border);line-height:1.5;}
+.disclaimer-banner strong{color:var(--borderline-col);}
 header{background:var(--navy);color:white;padding:30px 24px;text-align:center;}
 header h1{font-family:'Playfair Display',serif;font-size:1.9rem;font-weight:700;margin-bottom:6px;}
 header p{color:#94a3b8;font-size:13px;}
@@ -233,7 +235,7 @@ canvas{display:block;width:100%;height:auto;}
   .tab{padding:10px 12px;font-size:12px;}
 }
 @media print{
-  .tabs-wrap,.showcase-banner,.action-row,.btn-action,.add-line-btn,.gen-btn,.template-grid{display:none!important;}
+  .tabs-wrap,.showcase-banner,.disclaimer-banner,.action-row,.btn-action,.add-line-btn,.gen-btn,.template-grid{display:none!important;}
   .tab-content{display:block!important;}
 }
 
@@ -357,7 +359,7 @@ canvas.sig-canvas{display:block;touch-action:none;cursor:crosshair;}
 @media print {
   * { -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
   html, body { margin: 0; padding: 0; background: white !important; font-size: 11pt; color: #000; }
-  .tabs-wrap, .showcase-banner, header, .card:not(#reportCard),
+  .tabs-wrap, .showcase-banner, .disclaimer-banner, header, .card:not(#reportCard),
   .btn-action, .gen-btn, .add-line-btn, .nlp-mode-btn,
   .action-row, .doctor-row, .signature-block, .equip-grid,
   .template-grid, .complete-bar, .complete-items,
@@ -497,6 +499,8 @@ canvas.sig-canvas{display:block;touch-action:none;cursor:crosshair;}
 
 <div class="showcase-banner">COMPLETE EDITION v3.0 — Patient &amp; Findings · Measurements · Valves · Impression · RHD Scoring · Z-Score Charts · Coronary Z-Scores</div>
 
+<div class="disclaimer-banner">⚠️ <strong>Disclaimer:</strong> This is a reporting facility / documentation system for use by qualified clinicians and sonographers. It does not provide medical advice, diagnosis, or treatment recommendations. All findings must be independently reviewed and interpreted by a licensed physician before clinical use.</div>
+
 <header>
   <div class="version-badge">Version 3.0 — Complete Edition</div>
   <h1>Pediatric Echocardiography Reporting System</h1>
@@ -570,7 +574,7 @@ canvas.sig-canvas{display:block;touch-action:none;cursor:crosshair;}
 
       <div class="form-row">
         <div class="form-group"><label>Hospital / Institution Name</label>
-          <input type="text" id="hospName" placeholder="e.g. Apollo Children's Hospital" oninput="updateHospPreview()"/>
+          <input type="text" id="hospName" placeholder="e.g. Hospital XXX" oninput="updateHospPreview()"/>
         </div>
         <div class="form-group"><label>Department / Unit</label>
           <input type="text" id="hospDept" placeholder="e.g. Dept. of Pediatric Cardiology" oninput="updateHospPreview()"/>
@@ -578,10 +582,10 @@ canvas.sig-canvas{display:block;touch-action:none;cursor:crosshair;}
       </div>
       <div class="form-row three">
         <div class="form-group"><label>Address Line 1</label>
-          <input type="text" id="hospAddr1" placeholder="e.g. 21 Greams Road" oninput="updateHospPreview()"/>
+          <input type="text" id="hospAddr1" placeholder="e.g. Address Line XXX" oninput="updateHospPreview()"/>
         </div>
         <div class="form-group"><label>City, State, PIN</label>
-          <input type="text" id="hospAddr2" placeholder="e.g. Chennai, Tamil Nadu 600006" oninput="updateHospPreview()"/>
+          <input type="text" id="hospAddr2" placeholder="e.g. City XXX, State XXX" oninput="updateHospPreview()"/>
         </div>
         <div class="form-group"><label>Country</label>
           <input type="text" id="hospCountry" placeholder="e.g. India" oninput="updateHospPreview()"/>
@@ -666,7 +670,7 @@ canvas.sig-canvas{display:block;touch-action:none;cursor:crosshair;}
       </div>
       <div class="form-row">
         <div class="form-group"><label>Referring Doctor / Consultant</label>
-          <input type="text" id="refDoctor" placeholder="e.g. Dr. Ramesh Kumar, Pediatrics"/>
+          <input type="text" id="refDoctor" placeholder="e.g. Dr. XXX, Pediatrics"/>
         </div>
         <div class="form-group"><label>Ward / OPD / Referral Unit</label>
           <input type="text" id="wardUnit" placeholder="e.g. Pediatric OPD, Ward 4B"/>
@@ -694,7 +698,7 @@ canvas.sig-canvas{display:block;touch-action:none;cursor:crosshair;}
     <div class="card-body">
       <div class="guardian-grid">
         <div class="form-group"><label>Parent / Guardian Name</label>
-          <input type="text" id="guardianName" placeholder="e.g. Ramesh Kumar"/>
+          <input type="text" id="guardianName" placeholder="e.g. Guardian XXX"/>
         </div>
         <div class="form-group"><label>Relation to Patient</label>
           <select id="guardianRel">
@@ -1643,7 +1647,7 @@ canvas.sig-canvas{display:block;touch-action:none;cursor:crosshair;}
       <div class="doctor-row" style="margin-bottom:8px;">
         <div class="form-group"><label>Doctor Name</label><input type="text" id="drName" placeholder="Dr. Full Name" oninput="updateSigBlock('reporting')"/></div>
         <div class="form-group"><label>Qualification / Designation</label><input type="text" id="drDesig" placeholder="e.g. DM Cardiology, DNB, FRCP"/></div>
-        <div class="form-group"><label>Medical Reg. No</label><input type="text" id="drReg" placeholder="e.g. MCI-2019-12345"/></div>
+        <div class="form-group"><label>Medical Reg. No</label><input type="text" id="drReg" placeholder="e.g. Reg. No. XXX"/></div>
       </div>
       <div class="form-row" style="margin-bottom:12px;">
         <div class="form-group"><label>Specialisation</label>
@@ -1662,7 +1666,7 @@ canvas.sig-canvas{display:block;touch-action:none;cursor:crosshair;}
       <!-- SONOGRAPHER -->
       <div style="font-size:11px;font-weight:600;color:var(--g600);text-transform:uppercase;letter-spacing:.3px;margin-bottom:6px;">Performing Sonographer / Technician</div>
       <div class="form-row" style="margin-bottom:12px;">
-        <div class="form-group"><label>Sonographer Name</label><input type="text" id="sonoName" placeholder="e.g. Ms. Priya Venkat" oninput="updateSigBlock('sono')"/></div>
+        <div class="form-group"><label>Sonographer Name</label><input type="text" id="sonoName" placeholder="e.g. Ms. XXX" oninput="updateSigBlock('sono')"/></div>
         <div class="form-group"><label>Qualification / Credential</label><input type="text" id="sonoDesig" placeholder="e.g. ARDMS, RDCS (PE)"/></div>
         <div class="form-group"><label>Reg. / Certification No.</label><input type="text" id="sonoReg" placeholder="e.g. ARDMS-2021-XXXXX"/></div>
       </div>
@@ -2170,7 +2174,7 @@ canvas.sig-canvas{display:block;touch-action:none;cursor:crosshair;}
         <div style="font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.4px;color:var(--navy);margin-bottom:10px;">Add Previous Echo Study</div>
         <div class="form-row three">
           <div class="form-group"><label>Study Date</label><input type="date" id="histDate"/></div>
-          <div class="form-group"><label>Institution</label><input type="text" id="histInst" placeholder="e.g. AIIMS, New Delhi"/></div>
+          <div class="form-group"><label>Institution</label><input type="text" id="histInst" placeholder="e.g. Hospital XXX"/></div>
           <div class="form-group"><label>Study Quality</label>
             <select id="histQuality"><option>Good</option><option>Adequate</option><option>Limited</option></select>
           </div>
@@ -4924,7 +4928,7 @@ renderDropdowns(segmentalFields,'segmentalFindings','seg');
 renderDropdowns(shuntFields,'shuntFindings','shunt');
 renderDropdowns(valveFields,'valveFindings','valve');
 renderMeas2D();
-renderDoppler();
+
 document.getElementById('patDate').value=new Date().toISOString().split('T')[0];
 loadHospDetails();
 initReportId();
